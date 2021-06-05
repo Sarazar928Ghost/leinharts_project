@@ -1,7 +1,7 @@
 from player import Player
+from round import Round
 
 
-# todo create round/matches
 # todo control_of_time
 class Tournament:
     def __init__(self,
@@ -27,11 +27,14 @@ class Tournament:
         self.rounds = rounds
 
     def sorted_by_ranking(self) -> None:
-        self.players.sort(key=lambda player: player["ranking"], reverse=True)
+        self.players.sort(key=lambda player: player.ranking, reverse=True)
 
     def create_pairs(self) -> tuple[tuple[Player, Player]]:
         self.sorted_by_ranking()  # self.players is now sorted
-        return (pair for pair in zip(self.players[:4], self.players[4:]))
+        return [pair for pair in zip(self.players[:4], self.players[4:])]
+
+    def add_round(self, name):
+        self.rounds.append(Round(name, self.create_pairs()))
 
     def add_player(self, player):
         self.players.append(player)
@@ -53,7 +56,7 @@ class Tournament:
             "date": self.date,
             "numbers_of_turns": self.number_of_turns,
             "description": self.description,
-            "players": [{player.id: player.store()} for player in self.players],
+            "players": [player.id for player in self.players],
             "control_of_time": self.control_of_time,
-            "rounds": self.rounds
+            "rounds": [round.store() for round in self.rounds]
         }
