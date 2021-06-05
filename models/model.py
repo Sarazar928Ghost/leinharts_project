@@ -8,16 +8,15 @@ class Model:
         self.db = TinyDB("data.json")
         self.table = self.db.table(table)
 
-    def insert(self, data, doc_id=None):
-        if doc_id is None:
-            self.table.insert(data)
-            return
+    def insert(self, entity):
+        self.table.insert(Document(entity.store(), doc_id=entity.id))
 
-        self.table.insert(Document(data, doc_id=doc_id))
+    def truncate(self):
+        self.table.truncate()
 
-    def multiple_insert(self, data_array):
-        for data in data_array:
-            self.insert(data)
+    def multiple_insert(self, entity_array):
+        for entity in entity_array:
+            self.insert(entity)
 
     def all(self):
         return self.table.all()
