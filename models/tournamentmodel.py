@@ -1,8 +1,8 @@
-from tournament import Tournament
+from classes.tournament import Tournament
 from models.model import Model
 from models.playermodel import PlayerModel
 from tinydb.table import Document
-from round import Round
+from classes.round import Round
 
 
 class TournamentModel(Model):

@@ -1,5 +1,5 @@
-from player import Player
-from round import Round
+from classes.player import Player
+from classes.round import Round
 
 
 # todo control_of_time
@@ -28,6 +28,9 @@ class Tournament:
 
     def sorted_by_ranking(self) -> None:
         self.players.sort(key=lambda player: player.ranking, reverse=True)
+
+    def sorted_by_alphabetical(self) -> None:
+        self.players.sort(key=lambda player: player.first_name, reverse=True)
 
     def create_pairs(self) -> tuple[tuple[Player, Player]]:
         self.sorted_by_ranking()  # self.players is now sorted
