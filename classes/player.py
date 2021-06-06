@@ -7,7 +7,7 @@ class Player:
         self.sex = sex
         self.ranking = ranking
 
-    def store(self):
+    def serialize(self):
         return {
             "first_name": self.first_name,
             "last_name": self.last_name,

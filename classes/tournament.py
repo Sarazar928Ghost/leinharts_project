@@ -52,7 +52,7 @@ class Tournament:
     def set_control_of_time(self, cot):
         self.control_of_time = cot
 
-    def store(self):
+    def serialize(self):
         return {
             "name": self.name,
             "location": self.location,
@@ -61,5 +61,5 @@ class Tournament:
             "description": self.description,
             "players": [player.id for player in self.players],
             "control_of_time": self.control_of_time,
-            "rounds": [round.store() for round in self.rounds]
+            "rounds": [round.serialize() for round in self.rounds]
         }

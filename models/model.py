@@ -8,8 +8,8 @@ class Model:
         self.db = TinyDB("data.json")
         self.table = self.db.table(table)
 
-    def insert(self, entity):
-        self.table.insert(Document(entity.store(), doc_id=entity.id))
+    def insert(self, classes):
+        self.table.insert(Document(classes.serialize(), doc_id=classes.id))
 
     def truncate(self):
         self.table.truncate()
@@ -22,4 +22,4 @@ class Model:
         return self.table.all()
 
     def get(self, id):
-        return self.table.get(doc_id=id)
+        return self.table.get(doc_id=int(id))

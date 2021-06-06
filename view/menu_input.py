@@ -18,7 +18,7 @@ def show_menu_tournament():
                  "2: Afficher par ranking les acteurs\n"
                  "3: Afficher les tours\n"
                  "4: Afficher les matchs\n"
-                 "5: Retour en arrière\n")
+                 "5: Retourner au menu principal\n")
 
 
 def choose_tournament():

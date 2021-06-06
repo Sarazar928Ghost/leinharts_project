@@ -1,8 +1,8 @@
-from view.menuplayer import show_players_by_ranking, show_players_by_alphabetical
-from view.menutournament import show_all_tournaments, show_all_rounds, show_all_matches
 from models.playermodel import PlayerModel
 from models.tournamentmodel import TournamentModel
-from view.menu import show_menu, show_menu_players, show_menu_tournament, choose_tournament
+import view.menu_input as menu_input
+import view.menuplayer as menu_player
+import view.menutournament as menu_tournament
 
 
 class MainController:
@@ -14,24 +14,25 @@ class MainController:
 
     def menu(self):
         while True:
-            response = show_menu()
+            response = menu_input.show_menu()
             if response == "1":
-                response = show_menu_players()
+                response = menu_input.show_menu_players()
                 if response == "1":
-                    show_players_by_alphabetical(self.players)
+                    menu_player.show_players_by_alphabetical(self.players)
                 elif response == "2":
-                    show_players_by_ranking(self.players)
-                input("Press enter for continue...")
+                    menu_player.show_players_by_ranking(self.players)
             elif response == "2":
-                show_all_tournaments(self.tournaments)
+                menu_tournament.show_all_tournaments(self.tournaments)
                 tournament = self.get_tournament()
                 if tournament is not None:
-                    response = show_menu_tournament()
+                    response = menu_input.show_menu_tournament()
                     self.menu_tournament(response, tournament)
+            elif response == "3":
+                return
 
     def get_tournament(self):
         while True:
-            choose = choose_tournament()
+            choose = menu_input.choose_tournament()
             if choose != "":
                 tournament = self.select_tournament(choose)
                 if tournament is not None:
@@ -50,10 +51,14 @@ class MainController:
 
     def menu_tournament(self, response, tournament):
         if response == "1":
-            show_players_by_alphabetical(tournament.players)
+            menu_player.show_players_by_alphabetical(tournament.players)
         elif response == "2":
-            show_players_by_ranking(tournament.players)
+            menu_player.show_players_by_ranking(tournament.players)
         elif response == "3":
-            show_all_rounds(tournament.rounds)
+            menu_tournament.show_all_rounds(tournament.rounds)
         elif response == "4":
-            show_all_matches(tournament.matches)
+            matches = []
+            for round in tournament.rounds:
+                for match in round.matches:
+                    matches.append(match)
+            menu_tournament.show_all_matches(matches)

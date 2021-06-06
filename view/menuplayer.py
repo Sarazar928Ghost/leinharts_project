@@ -11,6 +11,7 @@ def show_players_by_alphabetical(players):
 def show_players(players):
     message = ""
     for player in players:
-        message += "{} - {}, {}, {}, {}, {}".format(player.id, *player.store().values())
+        message += "{} - {}, {}, {}, {}, {}".format(player.id, *player.serialize().values())
         message += "\n"
+    print("ID - First Name , Last Name , Birth Date , Sex , Ranking")
     print(message)
