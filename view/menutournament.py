@@ -17,9 +17,9 @@ def show_all_tournaments(tournaments):
 def show_all_rounds(rounds):
     message = ""
     for idx, round in enumerate(rounds):
-        message += "{} - {}, {}, {}, {}, {}, {}".format(idx, *round.serialize().values())
+        message += "{} - {}, {}, {}, {}, {}".format(idx, *round.serialize().values())
         message += "\n"
-    print("ID - Name , Pairs , Date Start , DateTime Start , Date End , DateTime End")
+    print("ID - Name , Date Start , DateTime Start , Date End , DateTime End")
     print(message)
 
 

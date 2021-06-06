@@ -30,11 +30,7 @@ class TournamentModel(Model):
     def unserialize_round(rounds, player_model):
         return [
             Round(round["name"],
-                  [
-                      [PlayerModel.unserialize([Document(player_model.get(player[0]), player[0])])[0],
-                       PlayerModel.unserialize([Document(player_model.get(player[1]), player[1])])[0]]
-                      for player in round["pairs"]
-                  ],
+                  [],
                   [
                       [match[0], [PlayerModel.unserialize([Document(player_model.get(match[1][0]), match[1][0])])[0],
                                   PlayerModel.unserialize([Document(player_model.get(match[1][1]), match[1][1])])[0]]]
