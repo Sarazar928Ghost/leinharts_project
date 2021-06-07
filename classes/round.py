@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 
 class Round:
-    def __init__(self, name, pairs, matches=None) -> None:
+    def __init__(self, name: str, pairs: list, matches: list = None) -> None:
         self.name = name
         self.start_date = date.today().strftime("%Y/%m/%d")
         self.start_hour = datetime.now().strftime("%H:%M:%S")
@@ -10,7 +10,7 @@ class Round:
         self.end_hour = None
         self.matches = matches if matches is not None else self.generate_matches(pairs)
 
-    def generate_matches(self, pairs) -> list:
+    def generate_matches(self, pairs: list) -> list:
         return [[[0.0, 0.0], players] for players in pairs]
 
     def end(self) -> None:

@@ -14,7 +14,7 @@ class Model:
     def truncate(self) -> None:
         self.table.truncate()
 
-    def multiple_insert(self, entity_array) -> None:
+    def multiple_insert(self, entity_array: list) -> None:
         for entity in entity_array:
             self.insert(entity)
 

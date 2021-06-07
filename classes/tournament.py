@@ -41,17 +41,17 @@ class Tournament:
     def add_round(self, name) -> None:
         self.rounds.append(Round(name, self.create_pairs()))
 
-    def add_player(self, player) -> None:
+    def add_player(self, player: Player) -> None:
         self.players.append(player)
 
-    def add_players(self, players) -> None:
+    def add_players(self, players: list[Player]) -> None:
         for player in players:
             self.add_player(player)
 
-    def set_description(self, description) -> None:
+    def set_description(self, description: str) -> None:
         self.description = description
 
-    def set_control_of_time(self, cot) -> None:
+    def set_control_of_time(self, cot: str) -> None:
         self.control_of_time = cot
 
     def serialize(self) -> dict:

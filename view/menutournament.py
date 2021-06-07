@@ -1,4 +1,4 @@
-def show_all_tournaments(tournaments) -> None:
+def show_all_tournaments(tournaments: list) -> None:
     message = ""
     for tournament in tournaments:
         td = list(tournament.serialize().values())
@@ -15,7 +15,7 @@ def show_all_tournaments(tournaments) -> None:
     print(message)
 
 
-def show_all_rounds(rounds) -> None:
+def show_all_rounds(rounds: list) -> None:
     message = ""
     for idx, round in enumerate(rounds):
         # 0 - Round x, 2021/06/07, 02:52:02, None, None
@@ -25,7 +25,7 @@ def show_all_rounds(rounds) -> None:
     print(message)
 
 
-def show_all_matches(matches) -> None:
+def show_all_matches(matches: list[dict]) -> None:
     message = ""
     for round in matches:
         for name, match in round.items():

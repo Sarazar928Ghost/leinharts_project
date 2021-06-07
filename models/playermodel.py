@@ -8,7 +8,8 @@ class PlayerModel(Model):
         super().__init__("players")
 
     @staticmethod
-    def unserialize(players_array) -> list[Player]:
+    def unserialize(players_array: list) -> list[Player]:
+        """Need list of Document"""
         return [Player(player.doc_id, player["first_name"], player["last_name"], player["birth_date"], player["sex"],
                        int(player["ranking"]))
                 for player in players_array]

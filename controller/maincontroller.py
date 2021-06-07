@@ -53,14 +53,14 @@ class MainController:
             else:
                 return None
 
-    def select_tournament(self, id_tournament) -> Optional[Tournament]:
+    def select_tournament(self, id_tournament: str) -> Optional[Tournament]:
         if id_tournament.isnumeric():
             for tournament in self.tournaments:
                 if tournament.id == int(id_tournament):
                     return tournament
         return None
 
-    def menu_tournament(self, response, tournament) -> None:
+    def menu_tournament(self, response: str, tournament: Tournament) -> None:
         if response == "1":
             menu_player.show_players_by_alphabetical(tournament.players)
         elif response == "2":

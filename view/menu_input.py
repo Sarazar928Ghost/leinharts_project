@@ -1,4 +1,5 @@
 from classes.player import Player
+from classes.tournament import Tournament
 
 
 def show_menu() -> str:
@@ -22,7 +23,7 @@ def show_menu_tournament() -> str:
                  "2: Afficher par ranking les acteurs\n"
                  "3: Afficher les tours\n"
                  "4: Afficher les matchs\n"
-                 #todo add a player
+                 # todo add a player
                  "5: Retourner au menu principal\n")
 
 
@@ -31,7 +32,7 @@ def choose_tournament() -> str:
                  "Appuyer sur enter si vous voulez retourner en arrière\n")
 
 
-def create_player(id) -> Player:
+def create_player(id: int) -> Player:
     first_name = input("First Name : ")
     last_name = input("Last Name : ")
     birth_day = input("Birth Day (Year/Month/Day) : ")
@@ -44,3 +45,8 @@ def create_player(id) -> Player:
     print("L'acteur a été crée avec succés.")
 
     return Player(id, first_name, last_name, birth_day, sex, int(ranking))
+
+
+def create_tournament(id: int) -> Tournament:
+    # todo
+    pass
