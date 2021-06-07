@@ -33,9 +33,9 @@ def choose_tournament() -> str:
 
 def create_player(id) -> Player:
     first_name = input("First Name : ")
-    last_name = input("Last Nae : ")
+    last_name = input("Last Name : ")
     birth_day = input("Birth Day (Year/Month/Day) : ")
-    sex = input("Sex (Man or Women or Non-Binaire) : ")
+    sex = input("Sex (Man , Women or Non-Binaire) : ")
     ranking = input("Ranking : ")
 
     while not ranking.isnumeric():

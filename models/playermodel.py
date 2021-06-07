@@ -10,5 +10,5 @@ class PlayerModel(Model):
     @staticmethod
     def unserialize(players_array) -> list[Player]:
         return [Player(player.doc_id, player["first_name"], player["last_name"], player["birth_date"], player["sex"],
-                       player["ranking"])
+                       int(player["ranking"]))
                 for player in players_array]
