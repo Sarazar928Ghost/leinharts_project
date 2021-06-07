@@ -43,4 +43,4 @@ def create_player(id) -> Player:
 
     print("L'acteur a été crée avec succés.")
 
-    return Player(id, first_name, last_name, birth_day, sex, ranking)
+    return Player(id, first_name, last_name, birth_day, sex, int(ranking))
