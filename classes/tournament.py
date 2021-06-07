@@ -13,9 +13,11 @@ class Tournament:
                  description="",
                  players=None,
                  control_of_time=None,
-                 rounds=[]) -> None:
+                 rounds=None) -> None:
         if players is None:
             players: list[Player] = []
+        if rounds is None:
+            rounds: list[Round] = []
         self.id = id
         self.name = name
         self.location = location
@@ -32,7 +34,7 @@ class Tournament:
     def sorted_by_alphabetical(self) -> None:
         self.players.sort(key=lambda player: player.first_name, reverse=True)
 
-    def create_pairs(self) -> tuple[tuple[Player, Player]]:
+    def create_pairs(self) -> list[tuple[Player, Player]]:
         self.sorted_by_ranking()  # self.players is now sorted
         return [pair for pair in zip(self.players[:4], self.players[4:])]
 

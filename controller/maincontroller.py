@@ -4,6 +4,7 @@ from models.tournamentmodel import TournamentModel
 import view.menu_input as menu_input
 import view.menuplayer as menu_player
 import view.menutournament as menu_tournament
+from typing import Optional
 
 
 class MainController:
@@ -40,7 +41,7 @@ class MainController:
             elif response == "4":
                 return
 
-    def get_tournament(self) -> Tournament:
+    def get_tournament(self) -> Optional[Tournament]:
         while True:
             choose = menu_input.choose_tournament()
             if choose != "":
@@ -52,7 +53,7 @@ class MainController:
             else:
                 return None
 
-    def select_tournament(self, id_tournament) -> Tournament:
+    def select_tournament(self, id_tournament) -> Optional[Tournament]:
         if id_tournament.isnumeric():
             for tournament in self.tournaments:
                 if tournament.id == int(id_tournament):
@@ -67,8 +68,9 @@ class MainController:
         elif response == "3":
             menu_tournament.show_all_rounds(tournament.rounds)
         elif response == "4":
-            matches = []
+            # [{"Round": [[0.0,0.0], [Player, Player]]}, ...]
+            matches: list[dict] = []
             for round in tournament.rounds:
                 for match in round.matches:
-                    matches.append(match)
+                    matches.append({round.name: match})
             menu_tournament.show_all_matches(matches)
