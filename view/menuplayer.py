@@ -1,17 +1,35 @@
-def show_players_by_ranking(players: list) -> None:
-    players.sort(key=lambda player: player.ranking)
-    show_players(players)
+from utils.consolecolor import ConsoleColor
+from classes.player import Player
 
 
-def show_players_by_alphabetical(players: list) -> None:
-    players.sort(key=lambda player: player.first_name)
-    show_players(players)
+def show_menu_players() -> str:
+    ConsoleColor.print_warning("Liste des functions pour les acteurs :")
+    return input("1: Afficher par ordre alphabétique\n"
+                 "2: Afficher par ranking\n"
+                 "3: Retour en arrière\n")
+
+
+def create_player(id: int) -> Player:
+    first_name = input("First Name : ")
+    last_name = input("Last Name : ")
+    birth_day = input("Birth Day (Year/Month/Day) : ")
+    sex = input("Sex (Man , Women or Non-Binaire) : ")
+    ranking = input("Ranking : ")
+
+    while not ranking.isnumeric():
+        ranking = input("Ranking ( Must be a int ) : ")
+
+    ConsoleColor.print_success("L'acteur a été crée avec succés.\n")
+
+    return Player(id, first_name, last_name, birth_day, sex, int(ranking))
 
 
 def show_players(players: list) -> None:
     message = ""
     for player in players:
-        message += "{} - {}, {}, {}, {}, {}".format(player.id, *player.serialize().values())
+        message += "  {} - {}, {}, {}, {}, {}".format(player.id, *player.serialize().values())
         message += "\n"
-    print("ID - First Name , Last Name , Birth Date , Sex , Ranking")
+    ConsoleColor.print_success("| -------------------------------------------------------- |")
+    ConsoleColor.print_success("| ID - First Name , Last Name , Birth Date , Sex , Ranking |")
     print(message)
+    ConsoleColor.print_success("| -------------------------------------------------------- |")
