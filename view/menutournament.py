@@ -1,4 +1,4 @@
-def show_all_tournaments(tournaments):
+def show_all_tournaments(tournaments) -> None:
     message = ""
     for tournament in tournaments:
         td = list(tournament.serialize().values())
@@ -14,7 +14,7 @@ def show_all_tournaments(tournaments):
     print(message)
 
 
-def show_all_rounds(rounds):
+def show_all_rounds(rounds) -> None:
     message = ""
     for idx, round in enumerate(rounds):
         message += "{} - {}, {}, {}, {}, {}".format(idx, *round.serialize().values())
@@ -23,7 +23,7 @@ def show_all_rounds(rounds):
     print(message)
 
 
-def show_all_matches(matches):
+def show_all_matches(matches) -> None:
     message = ""
     for idx, match in enumerate(matches):
         message += "{} - {}, {}, {}".format(idx, match[0], match[1][0].first_name, match[1][1].first_name)

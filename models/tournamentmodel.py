@@ -11,7 +11,7 @@ class TournamentModel(Model):
         super().__init__("tournament")
 
     @staticmethod
-    def unserialize(tournaments_data):
+    def unserialize(tournaments_data) -> list[Tournament]:
         player_model = PlayerModel()
         return [Tournament(tournament.doc_id,
                            tournament["name"],
@@ -27,7 +27,7 @@ class TournamentModel(Model):
                 for tournament in tournaments_data]
 
     @staticmethod
-    def unserialize_round(rounds, player_model):
+    def unserialize_round(rounds, player_model) -> list[Round]:
         return [
             Round(round["name"],
                   [],

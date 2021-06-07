@@ -13,7 +13,7 @@ class Tournament:
                  description="",
                  players=None,
                  control_of_time=None,
-                 rounds=[]):
+                 rounds=[]) -> None:
         if players is None:
             players: list[Player] = []
         self.id = id
@@ -36,23 +36,23 @@ class Tournament:
         self.sorted_by_ranking()  # self.players is now sorted
         return [pair for pair in zip(self.players[:4], self.players[4:])]
 
-    def add_round(self, name):
+    def add_round(self, name) -> None:
         self.rounds.append(Round(name, self.create_pairs()))
 
-    def add_player(self, player):
+    def add_player(self, player) -> None:
         self.players.append(player)
 
-    def add_players(self, players):
+    def add_players(self, players) -> None:
         for player in players:
             self.add_player(player)
 
-    def set_description(self, description):
+    def set_description(self, description) -> None:
         self.description = description
 
-    def set_control_of_time(self, cot):
+    def set_control_of_time(self, cot) -> None:
         self.control_of_time = cot
 
-    def serialize(self):
+    def serialize(self) -> dict:
         return {
             "name": self.name,
             "location": self.location,
