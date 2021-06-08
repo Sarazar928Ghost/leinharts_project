@@ -19,6 +19,10 @@ def create_player(id: int) -> Player:
     while not ranking.isnumeric():
         ranking = input("Ranking ( Must be a int ) : ")
 
+    if first_name == "" or last_name == "" or birth_day == "" or sex == "":
+        ConsoleColor.print_fail("Les champs ne peuvent pas être vide")
+        create_player(id)
+
     return Player(id, first_name, last_name, birth_day, sex, int(ranking))
 
 

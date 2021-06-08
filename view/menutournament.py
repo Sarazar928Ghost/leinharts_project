@@ -61,8 +61,13 @@ def create_tournament(id: int) -> Tournament:
         while not numbers_of_turns.isnumeric():
             numbers_of_turns = input("numbers_of_turns doit être numérique : ")
 
-    description = input("Description : ")
     control_of_time = input("Control du temps : ")
+
+    if name == "" or location == "" or date == "" or control_of_time == "":
+        ConsoleColor.print_fail("Les champs [name, location, date, control_of_time] ne peuvent pas être vide")
+        create_tournament(id)
+
+    description = input("Description : ")
 
     return Tournament(id, name, location, date, int(numbers_of_turns), description, None, control_of_time)
 
