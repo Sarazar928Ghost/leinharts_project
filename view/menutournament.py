@@ -1,5 +1,6 @@
 from utils.consolecolor import ConsoleColor
 from classes.tournament import Tournament
+from typing import Optional
 
 
 def show_menu_tournament() -> str:
@@ -8,8 +9,10 @@ def show_menu_tournament() -> str:
                  "2: Afficher par ranking les acteurs\n"
                  "3: Afficher les tours\n"
                  "4: Afficher les matchs\n"
-                 # todo add a player
-                 "5: Retourner au menu principal\n")
+                 "5: Ajouter un acteur\n"
+                 "6: Ajouter plusieurs acteurs\n"
+                 "7: Générer un tour ( Besoin 8 acteurs dans le tournoi )\n"
+                 "8: Retourner au menu principal\n")
 
 
 def choose_tournament() -> str:
@@ -17,9 +20,51 @@ def choose_tournament() -> str:
     return input("Appuyer sur enter si vous voulez retourner en arrière\n")
 
 
+def error_not_found_tournament() -> None:
+    ConsoleColor.print_fail("Ce tournoi n'éxiste pas...")
+
+
+def add_player() -> Optional[int]:
+    ConsoleColor.print_warning("Appuyez sur enter pour quitter")
+    id = input("Rentrez l'id de l'acteur a ajouter ( Example : 10 ) : ")
+    if id == "":
+        return None
+    while not id.isnumeric():
+        id = input("L'id doit être un nombre : ")
+    return int(id)
+
+
+def add_players() -> list[int]:
+    done = False
+    while not done:
+        done = True
+        response = input("Rentrez les id des acteurs a ajouter ( Example : 1,2,3,4,5 ) : ")
+        split_id = response.split(",")
+        for idx, id in enumerate(split_id):
+            id = id.strip()  # remove space
+            if not id.isnumeric():
+                done = False
+                ConsoleColor.print_fail("Les id doivent être numéric et séparé par des virgules.")
+                break
+            split_id[idx] = int(id)
+    return split_id
+
+
 def create_tournament(id: int) -> Tournament:
-    # todo
-    pass
+    name = input("Name : ")
+    location = input("Location : ")
+    date = input("Date (Year/Month/Day) : ")
+    numbers_of_turns = input("numbers_of_turns (Default 4) : ")
+    if numbers_of_turns == "":
+        numbers_of_turns = 4
+    else:
+        while not numbers_of_turns.isnumeric():
+            numbers_of_turns = input("numbers_of_turns doit être numérique : ")
+
+    description = input("Description : ")
+    control_of_time = input("Control du temps : ")
+
+    return Tournament(id, name, location, date, int(numbers_of_turns), description, None, control_of_time)
 
 
 def show_all_tournaments(tournaments: list) -> None:

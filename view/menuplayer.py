@@ -19,8 +19,6 @@ def create_player(id: int) -> Player:
     while not ranking.isnumeric():
         ranking = input("Ranking ( Must be a int ) : ")
 
-    ConsoleColor.print_success("L'acteur a été crée avec succés.\n")
-
     return Player(id, first_name, last_name, birth_day, sex, int(ranking))
 
 

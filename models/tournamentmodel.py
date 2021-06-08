@@ -3,6 +3,7 @@ from models.model import Model
 from models.playermodel import PlayerModel
 from tinydb.table import Document
 from classes.round import Round
+from typing import Optional
 
 
 class TournamentModel(Model):
@@ -27,8 +28,7 @@ class TournamentModel(Model):
                           tournament["date"],
                           tournament["numbers_of_turns"],
                           tournament["description"],
-                          PlayerModel.unserialize_many(
-                              [Document(player_model.get(doc_id), doc_id) for doc_id in tournament["players"]]),
+                          [player_model.get(doc_id) for doc_id in tournament["players"]],
                           tournament["control_of_time"],
                           TournamentModel.unserialize_round(tournament["rounds"], player_model)
                           )
@@ -39,10 +39,20 @@ class TournamentModel(Model):
             Round(round["name"],
                   [],
                   [
-                      [match[0], [PlayerModel.unserialize_single(Document(player_model.get(match[1][0]), match[1][0])),
-                                  PlayerModel.unserialize_single(Document(player_model.get(match[1][1]), match[1][1]))]]
+                      [match[0], [player_model.get(match[1][0]),
+                                  player_model.get(match[1][1])]]
                       for match in round["matches"]
                   ]
                   )
             for round in rounds
         ]
+
+    def all(self) -> list[Tournament]:
+        tournaments = super().all()
+        return self.unserialize_many(tournaments)
+
+    def get(self, id) -> Optional[Tournament]:
+        tournament = super().get(id)
+        if tournament is not None:
+            tournament = self.unserialize_single(tournament)
+        return tournament

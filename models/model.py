@@ -1,5 +1,6 @@
 from tinydb import TinyDB
 from tinydb.table import Document
+from typing import Optional
 
 
 class Model:
@@ -14,12 +15,12 @@ class Model:
     def truncate(self) -> None:
         self.table.truncate()
 
-    def multiple_insert(self, entity_array: list) -> None:
-        for entity in entity_array:
-            self.insert(entity)
+    def multiple_insert(self, classes_array: list) -> None:
+        for classes in classes_array:
+            self.insert(classes)
 
-    def all(self) -> list:
+    def all(self) -> list[Document]:
         return self.table.all()
 
-    def get(self, id) -> Document:
+    def get(self, id) -> Optional[Document]:
         return self.table.get(doc_id=int(id))

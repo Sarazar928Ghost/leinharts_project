@@ -25,6 +25,7 @@ class Tournament:
         self.number_of_turns = numbers_of_turns
         self.description = description
         self.players = players
+        self.players_id = [player.id for player in players]
         self.control_of_time = control_of_time
         self.rounds = rounds
 
@@ -43,12 +44,20 @@ class Tournament:
     def add_round(self, name) -> None:
         self.rounds.append(Round(name, self.create_pairs()))
 
-    def add_player(self, player: Player) -> None:
+    def add_player(self, player: Player) -> bool:
+        if player.id in self.players_id:
+            return False
+        self.players_id.append(player.id)
         self.players.append(player)
+        return True
 
-    def add_players(self, players: list[Player]) -> None:
+    def add_players(self, players: list[Player]) -> tuple[int, bool]:
         for player in players:
-            self.add_player(player)
+            if not self.add_player(player):
+                return player.id, False
+            if len(self.players) == 8:
+                return 0, True
+        return 0, True
 
     def set_description(self, description: str) -> None:
         self.description = description
@@ -63,7 +72,7 @@ class Tournament:
             "date": self.date,
             "numbers_of_turns": self.number_of_turns,
             "description": self.description,
-            "players": [player.id for player in self.players],
+            "players": self.players_id,
             "control_of_time": self.control_of_time,
             "rounds": [round.serialize() for round in self.rounds]
         }
