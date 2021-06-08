@@ -1,1 +1,230 @@
-{"players": {"1": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1100}, "2": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1200}, "3": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1500}, "4": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1800}, "5": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1000}, "6": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1200}, "7": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1650}, "8": {"first_name": "keke", "last_name": "keke", "birth_date": "keke", "sex": "kek", "ranking": 1150}, "9": {"first_name": "Kevin", "last_name": "Kevin", "birth_date": "1996/08/30", "sex": "Man", "ranking": 1950}, "10": {"first_name": "Tont", "last_name": "Tont", "birth_date": "1993/07/24", "sex": "Man", "ranking": 2500}, "11": {"first_name": "Karim", "last_name": "Karim", "birth_date": "1990/03/20", "sex": "Man", "ranking": 6000}, "12": {"first_name": "Leinharts", "last_name": "Leinharts", "birth_date": "1800/02/20", "sex": "Man", "ranking": 999999}, "13": {"first_name": "Jean", "last_name": "Jena", "birth_date": "1200/10/28", "sex": "Man", "ranking": 8500}, "14": {"first_name": "Mannnn", "last_name": "Maaannn", "birth_date": "1000/11/28", "sex": "Man", "ranking": 2503}, "15": {"first_name": "Kevin", "last_name": "Kevin", "birth_date": "1800/12/28", "sex": "Man", "ranking": 1250}, "16": {"first_name": "Keke", "last_name": "Keke", "birth_date": "1200/07/21", "sex": "Man", "ranking": 2125}, "17": {"first_name": "Toto", "last_name": "Toto", "birth_date": "1950/08/25", "sex": "Man", "ranking": 6500}, "18": {"first_name": "", "last_name": "", "birth_date": "", "sex": "", "ranking": 120}}, "tournament": {"1": {"name": "test tournament", "location": "Belgique", "date": "2021/06/06", "numbers_of_turns": 4, "description": "Une description pour le test", "players": [4, 7, 3, 2, 6, 8, 1, 5], "control_of_time": null, "rounds": [{"name": "Round 1", "start_date": "2021/06/08", "start_hour": "20:21:08", "end_date": null, "end_hour": null, "matches": [[[0.0, 0.0], [4, 6]], [[0.0, 0.0], [7, 8]], [[0.0, 0.0], [3, 1]], [[0.0, 0.0], [2, 5]]]}]}, "2": {"name": "Test 2", "location": "France", "date": "2022/08/15", "numbers_of_turns": 4, "description": "Un test de France", "players": [15, 12, 1, 2, 3, 13, 4, 5], "control_of_time": "rapide", "rounds": []}}}
+{
+  "players": {
+    "1": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1100
+    },
+    "2": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1200
+    },
+    "3": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1500
+    },
+    "4": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1800
+    },
+    "5": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1000
+    },
+    "6": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1200
+    },
+    "7": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1650
+    },
+    "8": {
+      "first_name": "keke",
+      "last_name": "keke",
+      "birth_date": "keke",
+      "sex": "kek",
+      "ranking": 1150
+    },
+    "9": {
+      "first_name": "Kevin",
+      "last_name": "Kevin",
+      "birth_date": "1996/08/30",
+      "sex": "Man",
+      "ranking": 1950
+    },
+    "10": {
+      "first_name": "Tont",
+      "last_name": "Tont",
+      "birth_date": "1993/07/24",
+      "sex": "Man",
+      "ranking": 2500
+    },
+    "11": {
+      "first_name": "Karim",
+      "last_name": "Karim",
+      "birth_date": "1990/03/20",
+      "sex": "Man",
+      "ranking": 6000
+    },
+    "12": {
+      "first_name": "Leinharts",
+      "last_name": "Leinharts",
+      "birth_date": "1800/02/20",
+      "sex": "Man",
+      "ranking": 999999
+    },
+    "13": {
+      "first_name": "Jean",
+      "last_name": "Jena",
+      "birth_date": "1200/10/28",
+      "sex": "Man",
+      "ranking": 8500
+    },
+    "14": {
+      "first_name": "Mannnn",
+      "last_name": "Maaannn",
+      "birth_date": "1000/11/28",
+      "sex": "Man",
+      "ranking": 2503
+    },
+    "15": {
+      "first_name": "Kevin",
+      "last_name": "Kevin",
+      "birth_date": "1800/12/28",
+      "sex": "Man",
+      "ranking": 1250
+    },
+    "16": {
+      "first_name": "Keke",
+      "last_name": "Keke",
+      "birth_date": "1200/07/21",
+      "sex": "Man",
+      "ranking": 2125
+    },
+    "17": {
+      "first_name": "Toto",
+      "last_name": "Toto",
+      "birth_date": "1950/08/25",
+      "sex": "Man",
+      "ranking": 6500
+    },
+    "18": {
+      "first_name": "Loli",
+      "last_name": "Lola",
+      "birth_date": "1500/07/18",
+      "sex": "Women",
+      "ranking": 4521
+    }
+  },
+  "tournament": {
+    "1": {
+      "name": "test tournament",
+      "location": "Belgique",
+      "date": "2021/06/06",
+      "numbers_of_turns": 4,
+      "description": "Une description pour le test",
+      "players": [
+        4,
+        7,
+        3,
+        2,
+        6,
+        8,
+        1,
+        5
+      ],
+      "control_of_time": null,
+      "rounds": [
+        {
+          "name": "Round 1",
+          "start_date": "2021/06/08",
+          "start_hour": "20:21:08",
+          "end_date": null,
+          "end_hour": null,
+          "matches": [
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                4,
+                6
+              ]
+            ],
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                7,
+                8
+              ]
+            ],
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                3,
+                1
+              ]
+            ],
+            [
+              [
+                0.0,
+                0.0
+              ],
+              [
+                2,
+                5
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    "2": {
+      "name": "Test 2",
+      "location": "France",
+      "date": "2022/08/15",
+      "numbers_of_turns": 4,
+      "description": "Un test de France",
+      "players": [
+        15,
+        12,
+        1,
+        2,
+        3,
+        13,
+        4,
+        5
+      ],
+      "control_of_time": "rapide",
+      "rounds": []
+    },
+    "3": {
+      "name": "Test 3",
+      "location": "France",
+      "date": "2023/08/12",
+      "numbers_of_turns": 4,
+      "description": "Bonsoir bonsoir",
+      "players": [],
+      "control_of_time": "rapide",
+      "rounds": []
+    }
+  }
+}

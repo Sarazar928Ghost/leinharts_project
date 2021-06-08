@@ -65,7 +65,7 @@ def create_tournament(id: int) -> Tournament:
 
     if name == "" or location == "" or date == "" or control_of_time == "":
         ConsoleColor.print_fail("Les champs [name, location, date, control_of_time] ne peuvent pas être vide")
-        create_tournament(id)
+        return create_tournament(id)
 
     description = input("Description : ")
 
