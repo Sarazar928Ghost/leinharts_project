@@ -157,6 +157,10 @@ class MainController:
             if len(tournament.players) != 8:
                 menu.print_fail("Impossible de crée un Round sans avoir 8 joueurs")
                 return True
-
+            if len(tournament.rounds) != 0:
+                menu.print_fail("Le tournoi a déjà un tour principal")
+                return True
+            tournament.add_round("Round 1")
+            menu.print_success("Le tour a bien été crée ainsi que ses match.")
             return True
         return False

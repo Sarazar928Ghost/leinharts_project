@@ -38,7 +38,7 @@ class Tournament:
         players.sort(key=lambda player: player.first_name)
 
     def create_pairs(self) -> list[tuple[Player, Player]]:
-        Tournament.sorted_by_ranking()  # self.players is now sorted
+        Tournament.sorted_by_ranking(self.players)  # self.players is now sorted
         return [pair for pair in zip(self.players[:4], self.players[4:])]
 
     def add_round(self, name) -> None:

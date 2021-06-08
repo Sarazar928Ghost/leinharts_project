@@ -11,7 +11,7 @@ def show_menu_tournament() -> str:
                  "4: Afficher les matchs\n"
                  "5: Ajouter un acteur\n"
                  "6: Ajouter plusieurs acteurs\n"
-                 "7: Générer un tour ( Besoin 8 acteurs dans le tournoi )\n"
+                 "7: Générer le premier tour ( Besoin de 8 acteurs )\n"
                  "8: Retourner au menu principal\n")
 
 
