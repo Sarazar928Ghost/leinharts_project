@@ -1,10 +1,10 @@
-from datetime import date, datetime
+from datetime import datetime
 
 
 class Round:
     def __init__(self, name: str, pairs: list, matches: list = None) -> None:
         self.name = name
-        self.start_date = date.today().strftime("%Y/%m/%d")
+        self.start_date = datetime.now().strftime("%Y/%m/%d")
         self.start_hour = datetime.now().strftime("%H:%M:%S")
         self.end_date = None
         self.end_hour = None
@@ -14,7 +14,7 @@ class Round:
         return [[[0.0, 0.0], players] for players in pairs]
 
     def end(self) -> None:
-        self.end_date = date.today()
+        self.end_date = datetime.now().strftime("%Y/%m/%d")
         self.end_hour = datetime.now().strftime("%H:%M:%S")
 
     def serialize(self) -> dict:

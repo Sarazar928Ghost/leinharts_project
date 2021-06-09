@@ -74,12 +74,12 @@ class MainController:
     def menu_tournament(self, response: str, tournament: Tournament) -> bool:
         # Show Players
         if response == "1":
-            Tournament.sorted_by_alphabetical(self.players)
+            Tournament.sorted_by_alphabetical(tournament.players)
             menu_player.show_players(tournament.players)
             return True
         # Show Players
         elif response == "2":
-            Tournament.sorted_by_ranking(self.players)
+            Tournament.sorted_by_ranking(tournament.players)
             menu_player.show_players(tournament.players)
             return True
         # Show Rounds

@@ -1,5 +1,6 @@
 from utils.consolecolor import ConsoleColor
 from classes.player import Player
+from utils.inpututils import cant_be_blank
 
 
 def show_menu_players() -> str:
@@ -10,18 +11,14 @@ def show_menu_players() -> str:
 
 
 def create_player(id: int) -> Player:
-    first_name = input("First Name : ")
-    last_name = input("Last Name : ")
-    birth_day = input("Birth Day (Year/Month/Day) : ")
-    sex = input("Sex (Man , Women or Non-Binaire) : ")
-    ranking = input("Ranking : ")
+    first_name = cant_be_blank("First Name : ")
+    last_name = cant_be_blank("Last Name : ")
+    birth_day = cant_be_blank("Birth Day (Year/Month/Day) : ")
+    sex = cant_be_blank("Sex (Man , Women or Non-Binaire) : ")
+    ranking = cant_be_blank("Ranking : ")
 
     while not ranking.isnumeric():
-        ranking = input("Ranking ( Must be a int ) : ")
-
-    if first_name == "" or last_name == "" or birth_day == "" or sex == "":
-        ConsoleColor.print_fail("Les champs ne peuvent pas être vide")
-        return create_player(id)
+        ranking = cant_be_blank("Ranking ( Must be a int ) : ")
 
     return Player(id, first_name, last_name, birth_day, sex, int(ranking))
 

@@ -1,6 +1,7 @@
 from utils.consolecolor import ConsoleColor
 from classes.tournament import Tournament
 from typing import Optional
+from utils.inpututils import cant_be_blank
 
 
 def show_menu_tournament() -> str:
@@ -51,21 +52,21 @@ def add_players() -> list[int]:
 
 
 def create_tournament(id: int) -> Tournament:
-    name = input("Name : ")
-    location = input("Location : ")
-    date = input("Date (Year/Month/Day) : ")
-    numbers_of_turns = input("numbers_of_turns (Default 4) : ")
+    name = cant_be_blank("Name : ")
+    location = cant_be_blank("Location : ")
+    date = cant_be_blank("Date (Year/Month/Day) : ")
+    numbers_of_turns = "usless"
+    while numbers_of_turns != "" and not numbers_of_turns.isnumeric():
+        numbers_of_turns = input("numbers_of_turns (Default 4) : ")
     if numbers_of_turns == "":
         numbers_of_turns = 4
-    else:
-        while not numbers_of_turns.isnumeric():
-            numbers_of_turns = input("numbers_of_turns doit être numérique : ")
 
-    control_of_time = input("Control du temps : ")
+    control_of_time = input("Control du temps [bullet, blitz, coup rapide] : ")
 
-    if name == "" or location == "" or date == "" or control_of_time == "":
-        ConsoleColor.print_fail("Les champs [name, location, date, control_of_time] ne peuvent pas être vide")
-        return create_tournament(id)
+    control_of_time = control_of_time.lower()
+    while control_of_time != "bullet" and control_of_time != "blitz" and control_of_time != "coup rapide":
+        ConsoleColor.print_fail("Control du temps doit être l'un de ces paramètre : [bullet, blitz, coup rapide]")
+        control_of_time = input("Control du temps [bullet, blitz, coup rapide] : ")
 
     description = input("Description : ")
 

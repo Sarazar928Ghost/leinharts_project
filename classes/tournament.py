@@ -28,6 +28,7 @@ class Tournament:
         self.players_id = [player.id for player in players]
         self.control_of_time = control_of_time
         self.rounds = rounds
+        self.__current_players = 8  # For create Round
 
     @staticmethod
     def sorted_by_ranking(players) -> None:
@@ -38,8 +39,9 @@ class Tournament:
         players.sort(key=lambda player: player.first_name)
 
     def create_pairs(self) -> list[tuple[Player, Player]]:
-        Tournament.sorted_by_ranking(self.players)  # self.players is now sorted
-        return [pair for pair in zip(self.players[:4], self.players[4:])]
+        Tournament.sorted_by_ranking(self.players)
+        slice = int(self.__current_players / 2)
+        return [pair for pair in zip(self.players[slice:], self.players[:slice])]
 
     def add_round(self, name) -> None:
         self.rounds.append(Round(name, self.create_pairs()))
