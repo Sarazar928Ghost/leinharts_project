@@ -38,6 +38,10 @@ class Tournament:
     def sorted_by_alphabetical(players) -> None:
         players.sort(key=lambda player: player.first_name)
 
+    @staticmethod
+    def sorted_by_id(players) -> None:
+        players.sort(key=lambda player: player.id)
+
     def create_pairs(self) -> list[tuple[Player, Player]]:
         Tournament.sorted_by_ranking(self.players)
         slice = int(self.__current_players / 2)

@@ -49,9 +49,11 @@ class MainController:
                             break
                         player.ranking = ranking
                         menu.print_success(f"Le ranking de l'acteur {player.first_name} a bien été mis à jour.")
+                        break
 
             # Create a player
             elif response == "4":
+                Tournament.sorted_by_id(self.players)
                 id = self.players[len(self.players) - 1].id + 1 if len(self.players) != 0 else 1
                 player = menu_player.create_player(id)
                 self.players.append(player)
