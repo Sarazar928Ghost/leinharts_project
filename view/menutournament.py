@@ -38,7 +38,7 @@ def add_player() -> Optional[int]:
     id = input("Rentrez l'id de l'acteur a ajouter ( Example : 10 ) : ")
     if id == "":
         return None
-    while not id.isnumeric():
+    while not id.isdecimal():
         id = input("L'id doit être un nombre : ")
     return int(id)
 
@@ -51,7 +51,7 @@ def add_players() -> list[int]:
         split_id = response.split(",")
         for idx, id in enumerate(split_id):
             id = id.strip()  # remove space
-            if not id.isnumeric():
+            if not id.isdecimal():
                 done = False
                 ConsoleColor.print_fail("Les id doivent être numéric et séparé par des virgules.")
                 break
@@ -64,7 +64,7 @@ def create_tournament(id: int) -> Tournament:
     location = cant_be_blank("Location : ")
     date = cant_be_blank("Date (Year/Month/Day) : ")
     numbers_of_turns = "usless"
-    while numbers_of_turns != "" and not numbers_of_turns.isnumeric():
+    while numbers_of_turns != "" and not numbers_of_turns.isdecimal():
         numbers_of_turns = input("numbers_of_turns (Default 4) : ")
     if numbers_of_turns == "":
         numbers_of_turns = 4

@@ -19,7 +19,7 @@ def choose_player() -> str:
 def update_ranking(first_name) -> Optional[int]:
     ConsoleColor.print_warning("Appuyez sur enter pour retourner en arrière")
     response = "usless"
-    while response != "" and not response.isnumeric():
+    while response != "" and not response.isdecimal():
         response = input(f"Rentrez le nouveau classement de {first_name} : ")
 
     if response == "":
@@ -41,7 +41,7 @@ def create_player(id: int) -> Player:
     sex = "Non-Binaire" if sex == "non-binaire" else sex.capitalize()
     ranking = cant_be_blank("Ranking : ")
 
-    while not ranking.isnumeric():
+    while not ranking.isdecimal():
         ranking = cant_be_blank("Ranking ( Must be a int ) : ")
 
     return Player(id, first_name, last_name, birth_day, sex, int(ranking))

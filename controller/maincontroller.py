@@ -82,7 +82,7 @@ class MainController:
                 return None
 
     def select_round(self, index_round: str, tournament: Tournament) -> Optional[Round]:
-        if index_round.isnumeric():
+        if index_round.isdecimal():
             index_round = int(index_round)
             length_rounds = len(tournament.rounds)
             if length_rounds == 0:
@@ -109,7 +109,7 @@ class MainController:
                 return None
 
     def select_player(self, id_player: str) -> Optional[Player]:
-        if id_player.isnumeric():
+        if id_player.isdecimal():
             for player in self.players:
                 if player.id == int(id_player):
                     return player
@@ -128,7 +128,7 @@ class MainController:
                 return None
 
     def select_tournament(self, id_tournament: str) -> Optional[Tournament]:
-        if id_tournament.isnumeric():
+        if id_tournament.isdecimal():
             for tournament in self.tournaments:
                 if tournament.id == int(id_tournament):
                     return tournament
