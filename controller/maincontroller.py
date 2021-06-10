@@ -48,6 +48,8 @@ class MainController:
                         if ranking is None:
                             break
                         player.ranking = ranking
+                        self.player_model.truncate()
+                        self.player_model.multiple_insert(self.players)
                         menu.print_success(f"Le ranking de l'acteur {player.first_name} a bien été mis à jour.")
                         break
 
