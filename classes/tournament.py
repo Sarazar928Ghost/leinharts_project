@@ -57,13 +57,16 @@ class Tournament:
         self.players.append(player)
         return True
 
-    def add_players(self, players: list[Player]) -> tuple[int, bool]:
+    def add_players(self, players: list[Player]) -> tuple[list, int, bool]:
+        # tuple[list of id OK, int of id KO, bool]
+        id = []
         for player in players:
             if not self.add_player(player):
-                return player.id, False
+                return id, player.id, False
+            id.append(player.id)
             if len(self.players) == 8:
-                return 0, True
-        return 0, True
+                return id, 0, True
+        return id, 0, True
 
     def set_description(self, description: str) -> None:
         self.description = description

@@ -208,16 +208,26 @@ class MainController:
                 menu.print_fail(f"L'acteur avec l'id {not_found_id} n'éxiste pas.")
                 return True
 
-            can_add = tournament.add_players(players)
-            # KO
-            if not can_add[1]:
-                menu.print_fail(f"L'acteur avec l'id {can_add[0]} est déjà inscris dans le tournoi.")
-                return True
 
             # OK
+            can_add = tournament.add_players(players)
+
             self.tournament_model.truncate()
             self.tournament_model.multiple_insert(self.tournaments)
-            menu.print_success(f"Les acteurs ont été ajouté avec succès dans le tournoi \"{tournament.name}\".")
+
+            if len(can_add[0]) == 0:
+                message = f"Aucun acteur n'a été ajouté au tournoi \"{tournament.name}\"."
+            else:
+                message = "Les acteurs avec les id : ["
+                for id in can_add[0]:
+                    message += f"{id},"
+                message = message[:-1]
+                message += f"] ont bien été ajouté au tournoi \"{tournament.name}\"."
+            menu.print_success(message)
+            if not can_add[2]:
+                menu.print_fail(
+                    f"L'acteur avec l'id {can_add[1]} est déjà inscris dans le tournoi \"{tournament.name}\"."
+                )
             return True
         # Generate a Round
         elif response == "6":
