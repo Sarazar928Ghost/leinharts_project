@@ -32,7 +32,13 @@ def create_player(id: int) -> Player:
     first_name = cant_be_blank("First Name : ")
     last_name = cant_be_blank("Last Name : ")
     birth_day = cant_be_blank("Birth Day (Year/Month/Day) : ")
-    sex = cant_be_blank("Sex (Man , Women or Non-Binaire) : ")
+    sex = cant_be_blank("Sex [Man , Women or Non-Binaire] : ")
+
+    sex = sex.lower()
+    while sex != "man" and sex != "women" and sex != "non-binaire":
+        ConsoleColor.print_fail("Le sex doit être l'un de ces paramètre : [Man, Women or Non-Binaire]")
+        sex = input("Sex [Man, Women, Non-Binaire] : ")
+    sex = "Non-Binaire" if sex == "non-binaire" else sex.capitalize()
     ranking = cant_be_blank("Ranking : ")
 
     while not ranking.isnumeric():
