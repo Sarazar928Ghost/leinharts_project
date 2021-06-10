@@ -4,16 +4,24 @@ from typing import Optional
 from utils.inpututils import cant_be_blank
 
 
-def show_menu_tournament() -> str:
-    ConsoleColor.print_warning("Liste des functions pour ce tournoi :")
+def show_menu_tournament(tournament_name) -> str:
+    ConsoleColor.print_warning(f"Liste des functions pour {tournament_name} :")
     return input("1: Afficher par ordre alphabétique les acteurs\n"
                  "2: Afficher par ranking les acteurs\n"
                  "3: Afficher les tours\n"
-                 "4: Afficher les matchs\n"
-                 "5: Ajouter un acteur\n"
-                 "6: Ajouter plusieurs acteurs\n"
-                 "7: Générer le premier tour ( Besoin de 8 acteurs )\n"
-                 "8: Retourner au menu principal\n")
+                 "4: Ajouter un acteur\n"
+                 "5: Ajouter plusieurs acteurs\n"
+                 "6: Générer le premier tour ( Besoin de 8 acteurs )\n"
+                 "7: Retourner au menu principal\n")
+
+def show_menu_round(round_name) -> str:
+    ConsoleColor.print_warning(f"Liste des functions pour {round_name} :")
+    return input("1: Afficher les match de ce round\n"
+                 "2: todo\n")
+
+def choose_round() -> str:
+    ConsoleColor.print_warning("Choisissez un tour par son id :")
+    return input("Appuyer sur enter si vous voulez retourner en arrière\n")
 
 
 def choose_tournament() -> str:
@@ -106,19 +114,16 @@ def show_all_rounds(rounds: list) -> None:
 
 def show_all_matches(matches: list[dict]) -> None:
     message = ""
-    for round in matches:
-        for name, match in round.items():
-            # Round x - Match - [0.0, first_name(id)] VS [0.0, first_name(id)]
-            message += "  {} - [{}, {}({})] VS [{}, {}({})]" \
-                .format(name + " - Match",
-                        match[0][0],
-                        match[1][0].first_name,
-                        match[1][0].id,
-                        match[0][1],
-                        match[1][1].first_name,
-                        match[1][1].id)
-            message += "\n"
-    ConsoleColor.print_success("| ------------------------------------------------------------------ |")
-    ConsoleColor.print_success("| Round - Match - [SCORE, first_name(id)] VS [SCORE, first_name(id)] |")
+    for match in matches:
+        message += "  [{}, {}({})] VS [{}, {}({})]" \
+            .format(match[0][0],
+                    match[1][0].first_name,
+                    match[1][0].id,
+                    match[0][1],
+                    match[1][1].first_name,
+                    match[1][1].id)
+        message += "\n"
+    ConsoleColor.print_success("| -------------------------------------------------- |")
+    ConsoleColor.print_success("| [SCORE, first_name(id)] VS [SCORE, first_name(id)] |")
     print(message)
-    ConsoleColor.print_success("| ------------------------------------------------------------------ |")
+    ConsoleColor.print_success("| -------------------------------------------------- |")

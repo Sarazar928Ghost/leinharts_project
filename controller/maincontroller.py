@@ -1,4 +1,5 @@
 from classes.player import Player
+from classes.round import Round
 from classes.tournament import Tournament
 from models.playermodel import PlayerModel
 from models.tournamentmodel import TournamentModel
@@ -33,7 +34,7 @@ class MainController:
                 tournament = self.get_tournament()
                 if tournament is not None:
                     while True:
-                        response = menu_tournament.show_menu_tournament()
+                        response = menu_tournament.show_menu_tournament(tournament.name)
                         if not self.menu_tournament(response, tournament):
                             break
             # Update ranking of a player
@@ -43,7 +44,7 @@ class MainController:
                 player = self.get_player()
                 if player is not None:
                     while True:
-                        ranking = menu_player.update_ranking()
+                        ranking = menu_player.update_ranking(player.first_name)
                         if ranking is None:
                             break
                         player.ranking = ranking
@@ -65,6 +66,33 @@ class MainController:
                 menu.print_success("Le tournoi a été crée avec succés.")
             else:
                 return
+
+    def get_round(self, tournament: Tournament) -> Optional[Round]:
+        while True:
+            choose = menu_tournament.choose_round()
+            if choose != "":
+                round = self.select_round(choose, tournament)
+                if round is not None:
+                    return round
+                else:
+                    menu.print_fail("Le tour choisis n'éxiste pas.")
+            else:
+                return None
+
+    def select_round(self, index_round: str, tournament: Tournament) -> Optional[Round]:
+        if index_round.isnumeric():
+            index_round = int(index_round)
+            length_rounds = len(tournament.rounds)
+            if length_rounds == 0:
+                return None
+            length_rounds -= 1
+            if index_round > length_rounds:
+                return None
+            if index_round < 0:
+                return None
+            return tournament.rounds[index_round]
+
+        return None
 
     def get_player(self) -> Optional[Player]:
         while True:
@@ -118,18 +146,20 @@ class MainController:
         # Show Rounds
         elif response == "3":
             menu_tournament.show_all_rounds(tournament.rounds)
-            return True
-        # Show Matches
-        elif response == "4":
-            # [{"Round": [[0.0,0.0], [Player, Player]]}, ...]
-            matches: list[dict] = []
-            for round in tournament.rounds:
-                for match in round.matches:
-                    matches.append({round.name: match})
-            menu_tournament.show_all_matches(matches)
+            while True:
+                round = self.get_round(tournament)
+                if round is None:
+                    break
+                
+                response = menu_tournament.show_menu_round(round.name)
+                if response == "1":
+                    menu_tournament.show_all_matches(round.matches)
+                    break
+                else:
+                    break
             return True
         # Add one player
-        elif response == "5":
+        elif response == "4":
             if len(tournament.players) == 8:
                 menu.print_fail("Le tournoi contient déjà 8 acteurs.")
                 return True
@@ -149,7 +179,7 @@ class MainController:
                         return True
                 menu.print_fail(f"L'acteur avec l'id {id} n'éxiste pas.")
         # Add many players
-        elif response == "6":
+        elif response == "5":
             if len(tournament.players) == 8:
                 menu.print_fail("Le tournoi contient déjà 8 acteurs.")
                 return True
@@ -186,7 +216,7 @@ class MainController:
             menu.print_success(f"Les acteurs ont été ajouté avec succès dans le tournoi \"{tournament.name}\".")
             return True
         # Generate a Round
-        elif response == "7":
+        elif response == "6":
             if len(tournament.players) != 8:
                 menu.print_fail("Impossible de crée un Round sans avoir 8 joueurs")
                 return True

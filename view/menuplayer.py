@@ -16,11 +16,11 @@ def choose_player() -> str:
     return input("Appuyer sur enter si vous voulez retourner en arrière\n")
 
 
-def update_ranking() -> Optional[int]:
+def update_ranking(first_name) -> Optional[int]:
     ConsoleColor.print_warning("Appuyez sur enter pour retourner en arrière")
     response = "usless"
     while response != "" and not response.isnumeric():
-        response = input("Rentrez le classement de cette acteur : ")
+        response = input(f"Rentrez le nouveau classement de {first_name} : ")
 
     if response == "":
         return None
