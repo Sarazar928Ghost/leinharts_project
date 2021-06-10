@@ -1,6 +1,7 @@
 from utils.consolecolor import ConsoleColor
 from classes.player import Player
 from utils.inpututils import cant_be_blank
+from typing import Optional
 
 
 def show_menu_players() -> str:
@@ -8,6 +9,23 @@ def show_menu_players() -> str:
     return input("1: Afficher par ordre alphabétique\n"
                  "2: Afficher par ranking\n"
                  "3: Retour en arrière\n")
+
+
+def choose_player() -> str:
+    ConsoleColor.print_warning("Choisissez un acteur par son id :")
+    return input("Appuyer sur enter si vous voulez retourner en arrière\n")
+
+
+def update_ranking() -> Optional[int]:
+    ConsoleColor.print_warning("Appuyez sur enter pour retourner en arrière")
+    response = "usless"
+    while response != "" and not response.isnumeric():
+        response = input("Rentrez le classement de cette acteur : ")
+
+    if response == "":
+        return None
+
+    return int(response)
 
 
 def create_player(id: int) -> Player:

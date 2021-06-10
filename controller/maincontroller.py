@@ -1,3 +1,4 @@
+from classes.player import Player
 from classes.tournament import Tournament
 from models.playermodel import PlayerModel
 from models.tournamentmodel import TournamentModel
@@ -35,15 +36,28 @@ class MainController:
                         response = menu_tournament.show_menu_tournament()
                         if not self.menu_tournament(response, tournament):
                             break
-            # Create a player
+            # Update ranking of a player
             elif response == "3":
+                Tournament.sorted_by_ranking(self.players)
+                menu_player.show_players(self.players)
+                player = self.get_player()
+                if player is not None:
+                    while True:
+                        ranking = menu_player.update_ranking()
+                        if ranking is None:
+                            break
+                        player.ranking = ranking
+                        menu.print_success(f"Le ranking de l'acteur {player.first_name} a bien été mis à jour.")
+
+            # Create a player
+            elif response == "4":
                 id = self.players[len(self.players) - 1].id + 1 if len(self.players) != 0 else 1
                 player = menu_player.create_player(id)
                 self.players.append(player)
                 self.player_model.insert(player)
                 menu.print_success("L'acteur a été crée avec succés.")
             # Create a tournament
-            elif response == "4":
+            elif response == "5":
                 id = self.tournaments[len(self.tournaments) - 1].id + 1 if len(self.tournaments) != 0 else 1
                 tournament = menu_tournament.create_tournament(id)
                 self.tournaments.append(tournament)
@@ -51,6 +65,25 @@ class MainController:
                 menu.print_success("Le tournoi a été crée avec succés.")
             else:
                 return
+
+    def get_player(self) -> Optional[Player]:
+        while True:
+            choose = menu_player.choose_player()
+            if choose != "":
+                player = self.select_player(choose)
+                if player is not None:
+                    return player
+                else:
+                    menu.print_fail("L'acteur choisis n'éxiste pas.")
+            else:
+                return None
+
+    def select_player(self, id_player: str) -> Optional[Player]:
+        if id_player.isnumeric():
+            for player in self.players:
+                if player.id == int(id_player):
+                    return player
+        return None
 
     def get_tournament(self) -> Optional[Tournament]:
         while True:
@@ -112,7 +145,7 @@ class MainController:
                         self.tournament_model.truncate()
                         self.tournament_model.multiple_insert(self.tournaments)
 
-                        menu.print_success("L'acteur a été ajouté avec succès.")
+                        menu.print_success(f"L'acteur \"{player.first_name}\" a été ajouté avec succès.")
                         return True
                 menu.print_fail(f"L'acteur avec l'id {id} n'éxiste pas.")
         # Add many players
@@ -150,7 +183,7 @@ class MainController:
             # OK
             self.tournament_model.truncate()
             self.tournament_model.multiple_insert(self.tournaments)
-            menu.print_success("Les acteurs ont été ajouté avec succès.")
+            menu.print_success(f"Les acteurs ont été ajouté avec succès dans le tournoi \"{tournament.name}\".")
             return True
         # Generate a Round
         elif response == "7":
