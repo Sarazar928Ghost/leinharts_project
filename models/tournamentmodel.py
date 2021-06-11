@@ -4,6 +4,7 @@ from models.playermodel import PlayerModel
 from tinydb.table import Document
 from classes.round import Round
 from typing import Optional
+from classes.match import Match
 
 
 class TournamentModel(Model):
@@ -40,10 +41,10 @@ class TournamentModel(Model):
             Round(round["name"],
                   [],
                   [
-                      [match[0], [player_model.get(match[1][0]),
-                                  player_model.get(match[1][1])]]
+                      Match([player_model.get(match["players"][0]), player_model.get(match["players"][1])],
+                            [match["scores"][0], match["scores"][1]])
                       for match in round["matches"]
-                  ]
+                  ],
                   )
             for round in rounds
         ]

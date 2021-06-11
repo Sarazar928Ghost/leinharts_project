@@ -2,6 +2,7 @@ from utils.consolecolor import ConsoleColor
 from classes.tournament import Tournament
 from typing import Optional
 from utils.inpututils import cant_be_blank
+from classes.match import Match
 
 
 def show_menu_tournament(tournament_name) -> str:
@@ -81,7 +82,7 @@ def create_tournament(id: int) -> Tournament:
 
     description = input("Description : ")
 
-    return Tournament(id, name, location, date, int(numbers_of_turns), description, None, control_of_time)
+    return Tournament(id, name, location, date, int(numbers_of_turns), 8, description, None, control_of_time)
 
 
 def show_all_tournaments(tournaments: list) -> None:
@@ -115,16 +116,16 @@ def show_all_rounds(rounds: list) -> None:
     ConsoleColor.print_success("| ----------------------------------------------------------------- |")
 
 
-def show_all_matches(matches: list[dict]) -> None:
+def show_all_matches(matches: list[Match]) -> None:
     message = ""
     for match in matches:
         message += "  [{}, {}({})] VS [{}, {}({})]" \
-            .format(match[0][0],
-                    match[1][0].first_name,
-                    match[1][0].id,
-                    match[0][1],
-                    match[1][1].first_name,
-                    match[1][1].id)
+            .format(match.player_one[0],
+                    match.player_one[1].first_name,
+                    match.player_one[1].id,
+                    match.player_two[0],
+                    match.player_two[1].first_name,
+                    match.player_two[1].id)
         message += "\n"
     ConsoleColor.print_success("| -------------------------------------------------- |")
     ConsoleColor.print_success("| [SCORE, first_name(id)] VS [SCORE, first_name(id)] |")
