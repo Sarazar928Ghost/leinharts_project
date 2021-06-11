@@ -39,11 +39,11 @@ class TournamentModel(Model):
         return [
             Round(round["name"],
                   [],
-                  [
-                      [match[0], [player_model.get(match[1][0]),
-                                  player_model.get(match[1][1])]]
+                  tuple([
+                      (match[0], [player_model.get(match[1][0]),
+                                  player_model.get(match[1][1])])
                       for match in round["matches"]
-                  ]
+                  ])
                   )
             for round in rounds
         ]

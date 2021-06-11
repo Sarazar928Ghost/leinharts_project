@@ -44,10 +44,10 @@ class Tournament:
     def sorted_by_id(players) -> None:
         players.sort(key=lambda player: player.id)
 
-    def create_pairs(self) -> list[tuple[Player, Player]]:
+    def create_pairs(self) -> list[list[Player, Player]]:
         Tournament.sorted_by_ranking(self.players)
         slice = int(self.current_players / 2)
-        return [pair for pair in zip(self.players[slice:], self.players[:slice])]
+        return [list(pair) for pair in zip(self.players[slice:], self.players[:slice])]
 
     def add_round(self, name) -> None:
         self.rounds.append(Round(name, self.create_pairs()))

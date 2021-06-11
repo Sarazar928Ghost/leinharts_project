@@ -10,8 +10,8 @@ class Round:
         self.end_hour = None
         self.matches = matches if matches is not None else self.generate_matches(pairs)
 
-    def generate_matches(self, pairs: list) -> list:
-        return [[[0.0, 0.0], players] for players in pairs]
+    def generate_matches(self, pairs: list) -> tuple[list]:
+        return tuple([([0.0, 0.0], players) for players in pairs])
 
     def end(self) -> None:
         self.end_date = datetime.now().strftime("%Y/%m/%d")
