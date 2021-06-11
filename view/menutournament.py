@@ -120,9 +120,9 @@ def show_all_matches(matches: list[dict]) -> None:
     for match in matches:
         message += "  [{}, {}({})] VS [{}, {}({})]" \
             .format(match[0][0],
-                    match[1][0].first_name,
-                    match[1][0].id,
-                    match[0][1],
+                    match[0][1].first_name,
+                    match[0][1].id,
+                    match[1][0],
                     match[1][1].first_name,
                     match[1][1].id)
         message += "\n"
