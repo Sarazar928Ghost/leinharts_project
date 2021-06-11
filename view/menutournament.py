@@ -14,10 +14,12 @@ def show_menu_tournament(tournament_name) -> str:
                  "6: Générer le premier tour ( Besoin de 8 acteurs )\n"
                  "7: Retourner au menu principal\n")
 
+
 def show_menu_round(round_name) -> str:
     ConsoleColor.print_warning(f"Liste des functions pour {round_name} :")
     return input("1: Afficher les match de ce round\n"
                  "2: todo\n")
+
 
 def choose_round() -> str:
     ConsoleColor.print_warning("Choisissez un tour par son id :")
@@ -45,6 +47,7 @@ def add_player() -> Optional[int]:
 
 def add_players() -> list[int]:
     done = False
+    split_id = []
     while not done:
         done = True
         response = input("Rentrez les id des acteurs a ajouter ( Example : 1,2,3,4,5 ) : ")
@@ -91,8 +94,8 @@ def show_all_tournaments(tournaments: list) -> None:
                    f"{td[1]}, " \
                    f"{td[2]}, " \
                    f"{td[3]}, " \
-                   f"{td[4]}, " \
-                   f"{td[6]}"
+                   f"{td[5]}, " \
+                   f"{td[7]}"
         message += "\n"
     ConsoleColor.print_success("| ------------------------------------------------------------------------------ |")
     ConsoleColor.print_success("| ID - Name , Location , Date , Numbers of Turns , Description , Control Of Time |")

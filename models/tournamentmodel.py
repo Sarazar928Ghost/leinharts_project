@@ -27,6 +27,7 @@ class TournamentModel(Model):
                           tournament["location"],
                           tournament["date"],
                           tournament["numbers_of_turns"],
+                          tournament["max_players"],
                           tournament["description"],
                           [player_model.get(doc_id) for doc_id in tournament["players"]],
                           tournament["control_of_time"],

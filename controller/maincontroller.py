@@ -67,7 +67,7 @@ class MainController:
                 tournament = menu_tournament.create_tournament(id)
                 self.tournaments.append(tournament)
                 self.tournament_model.insert(tournament)
-                menu.print_success("Le tournoi a été crée avec succés.")
+                menu.print_success(f"Le tournoi \"{tournament.name}\" a été crée avec succés.")
             else:
                 return
 
@@ -86,13 +86,8 @@ class MainController:
     def select_round(self, index_round: str, tournament: Tournament) -> Optional[Round]:
         if index_round.isdecimal():
             index_round = int(index_round)
-            length_rounds = len(tournament.rounds)
-            if length_rounds == 0:
-                return None
-            length_rounds -= 1
-            if index_round > length_rounds:
-                return None
-            if index_round < 0:
+            length_rounds = len(tournament.rounds) - 1
+            if length_rounds == -1 or index_round > length_rounds or index_round < 0:
                 return None
             return tournament.rounds[index_round]
 
@@ -136,6 +131,7 @@ class MainController:
                     return tournament
         return None
 
+    # Return True for stay in the menu tournament
     def menu_tournament(self, response: str, tournament: Tournament) -> bool:
         # Show Players
         if response == "1":
@@ -153,19 +149,18 @@ class MainController:
             while True:
                 round = self.get_round(tournament)
                 if round is None:
-                    break
+                    return True
                 
                 response = menu_tournament.show_menu_round(round.name)
                 if response == "1":
                     menu_tournament.show_all_matches(round.matches)
-                    break
+                    return True
                 else:
-                    break
-            return True
+                    return True
         # Add one player
         elif response == "4":
-            if len(tournament.players) == 8:
-                menu.print_fail("Le tournoi contient déjà 8 acteurs.")
+            if tournament.is_full():
+                menu.print_fail(f"Le tournoi contient déjà {tournament.max_players} acteurs.")
                 return True
             while True:
                 id = menu_tournament.add_player()
@@ -184,8 +179,8 @@ class MainController:
                 menu.print_fail(f"L'acteur avec l'id {id} n'éxiste pas.")
         # Add many players
         elif response == "5":
-            if len(tournament.players) == 8:
-                menu.print_fail("Le tournoi contient déjà 8 acteurs.")
+            if tournament.is_full():
+                menu.print_fail(f"Le tournoi contient déjà {tournament.max_players} acteurs.")
                 return True
             all_id = menu_tournament.add_players()
             done = False
@@ -231,11 +226,11 @@ class MainController:
             return True
         # Generate a Round
         elif response == "6":
-            if len(tournament.players) != 8:
-                menu.print_fail("Impossible de crée un Round sans avoir 8 joueurs")
+            if not tournament.is_full():
+                menu.print_fail(f"Impossible de crée un Round sans avoir {tournament.max_players} joueurs")
                 return True
             if len(tournament.rounds) != 0:
-                menu.print_fail("Le tournoi a déjà un tour principal")
+                menu.print_fail(f"Le tournoi {tournament.name} a déjà un tour principal")
                 return True
             tournament.add_round("Round 1")
             self.tournament_model.truncate()
