@@ -29,7 +29,7 @@ class TournamentModel(Model):
                           tournament["numbers_of_turns"],
                           tournament["max_players"],
                           tournament["description"],
-                          [player_model.get(doc_id) for doc_id in tournament["players"]],
+                          [[player_model.get(player[0]), player[1]] for player in tournament["players"]],
                           tournament["control_of_time"],
                           TournamentModel.unserialize_round(tournament["rounds"], player_model)
                           )

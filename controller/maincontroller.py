@@ -236,9 +236,10 @@ class MainController:
             if len(tournament.rounds) != 0:
                 menu.print_fail(f"Le tournoi {tournament.name} a déjà un tour principal")
                 return True
-            tournament.add_round("Round 1")
-            self.tournament_model.truncate()
-            self.tournament_model.multiple_insert(self.tournaments)
+            tournament.create_round("Round 1")
+            #self.tournament_model.truncate()
+            #self.tournament_model.multiple_insert(self.tournaments)
             menu.print_success("Le tour a bien été crée ainsi que ses match.")
             return True
+        tournament.test()
         return False
