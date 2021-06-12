@@ -153,12 +153,16 @@ class MainController:
                 
                 response = menu_tournament.show_menu_round(round.name)
                 if response == "1":
-                    menu_tournament.show_all_matches(round.matches)
+                    menu_tournament.all_matches_of_round(round.matches)
                     return True
                 else:
                     return True
-        # Add one player
+        # Show all matches of the current tournament
         elif response == "4":
+            menu_tournament.show_all_matches(tournament.rounds)
+            return True
+        # Add one player
+        elif response == "5":
             if tournament.is_full():
                 menu.print_fail(f"Le tournoi contient déjà {tournament.max_players} acteurs.")
                 return True
@@ -178,7 +182,7 @@ class MainController:
                         return True
                 menu.print_fail(f"L'acteur avec l'id {id} n'éxiste pas.")
         # Add many players
-        elif response == "5":
+        elif response == "6":
             if tournament.is_full():
                 menu.print_fail(f"Le tournoi contient déjà {tournament.max_players} acteurs.")
                 return True
@@ -225,7 +229,7 @@ class MainController:
                 )
             return True
         # Generate a Round
-        elif response == "6":
+        elif response == "7":
             if not tournament.is_full():
                 menu.print_fail(f"Impossible de crée un Round sans avoir {tournament.max_players} joueurs")
                 return True

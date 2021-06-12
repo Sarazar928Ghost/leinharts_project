@@ -44,10 +44,10 @@ class Tournament:
     def sorted_by_id(players) -> None:
         players.sort(key=lambda player: player.id)
 
-    def create_pairs(self) -> list[list[Player, Player]]:
+    def create_pairs(self) -> list[tuple[int, int]]:
         Tournament.sorted_by_ranking(self.players)
         slice = int(self.current_players / 2)
-        return [pair for pair in zip(self.players[slice:], self.players[:slice])]
+        return [(pair[0].id, pair[1].id) for pair in zip(self.players[slice:], self.players[:slice])]
 
     def add_round(self, name) -> None:
         self.rounds.append(Round(name, self.create_pairs()))
@@ -96,3 +96,12 @@ class Tournament:
             "control_of_time": self.control_of_time,
             "rounds": [round.serialize() for round in self.rounds]
         }
+
+    def __str__(self):
+        return f"  {self.id} - " \
+                   f"{self.name}, " \
+                   f"{self.location}, " \
+                   f"{self.date}, " \
+                   f"{self.number_of_turns}, " \
+                   f"{self.description}, " \
+                   f"{self.control_of_time}"

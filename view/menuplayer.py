@@ -35,7 +35,7 @@ def create_player(id: int) -> Player:
     sex = cant_be_blank("Sex [Man , Women or Non-Binaire] : ")
 
     sex = sex.lower()
-    while sex != "man" and sex != "women" and sex != "non-binaire":
+    while sex not in ["man", "women", "non-binaire"]:
         ConsoleColor.print_fail("Le sex doit être l'un de ces paramètre : [Man, Women or Non-Binaire]")
         sex = input("Sex [Man, Women, Non-Binaire] : ")
     sex = "Non-Binaire" if sex == "non-binaire" else sex.capitalize()
@@ -50,7 +50,7 @@ def create_player(id: int) -> Player:
 def show_players(players: list) -> None:
     message = ""
     for player in players:
-        message += "  {} - {}, {}, {}, {}, {}".format(player.id, *player.serialize().values())
+        message += f"  {player}"
         message += "\n"
     ConsoleColor.print_success("| -------------------------------------------------------- |")
     ConsoleColor.print_success("| ID - First Name , Last Name , Birth Date , Sex , Ranking |")
