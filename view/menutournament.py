@@ -5,7 +5,7 @@ from typing import Optional
 from utils.inpututils import cant_be_blank
 
 
-def show_menu_tournament(tournament_name) -> str:
+def show_menu_tournament(tournament_name, number_of_player) -> str:
     ConsoleColor.print_warning(f"Liste des functions pour {tournament_name} :")
     return input("1: Afficher par ordre alphabétique les acteurs\n"
                  "2: Afficher par ranking les acteurs\n"
@@ -13,8 +13,9 @@ def show_menu_tournament(tournament_name) -> str:
                  "4: Afficher tout les match du tournoi\n"
                  "5: Ajouter un acteur\n"
                  "6: Ajouter plusieurs acteurs\n"
-                 "7: Générer le premier tour ( Besoin de 8 acteurs )\n"
-                 "8: Retourner au menu principal\n")
+                 f"7: Générer un tour ( besoin de {number_of_player} joueurs )\n"
+                 "8: Rentrer les scores\n"
+                 "9: Retourner au menu principal\n")
 
 
 def show_menu_round(round_name) -> str:
@@ -53,6 +54,8 @@ def add_players() -> list[int]:
     while not done:
         done = True
         response = input("Rentrez les id des acteurs a ajouter ( Example : 1,2,3,4,5 ) : ")
+        while response[-1] == "," or response[-1] == " ":
+            response = response[:-1]
         split_id = response.split(",")
         for idx, id in enumerate(split_id):
             id = id.strip()  # remove space
@@ -62,6 +65,20 @@ def add_players() -> list[int]:
                 break
             split_id[idx] = int(id)
     return split_id
+
+
+def put_scores(round: Round) -> list[int]:
+    number_of_matches = len(round.matches)
+    scores = []
+    ConsoleColor.print_warning("[1 = premier acteur gagne] ; [2 = deuxième acteur gagne] ; [0 = égalité]")
+    for i in range(number_of_matches):
+        score = "usless"
+        while not score.isnumeric() or score not in ["1", "2", "0"]:
+            score = cant_be_blank(
+                f"Rentrez le score pour ce match ({round.matches[i][0][0]} - {round.matches[i][1][0]}) : "
+            )
+        scores.append(int(score))
+    return scores
 
 
 def create_tournament(id: int) -> Tournament:
@@ -89,8 +106,6 @@ def create_tournament(id: int) -> Tournament:
 def show_all_tournaments(tournaments: list[Tournament]) -> None:
     message = ""
     for tournament in tournaments:
-        td = list(tournament.serialize().values())
-        # 1 - test tournament, Belgique, 2021/06/06, 4, Une description pour le test, None
         message += f"  {tournament}"
         message += "\n"
     ConsoleColor.print_success("| ------------------------------------------------------------------------------ |")
@@ -102,13 +117,12 @@ def show_all_tournaments(tournaments: list[Tournament]) -> None:
 def show_all_rounds(rounds: list[Round]) -> None:
     message = ""
     for idx, round in enumerate(rounds):
-        # 0 - Round x, 2021/06/07, 02:52:02, None, None
         message += f"  {idx} - {round}"
         message += "\n"
-    ConsoleColor.print_success("| ----------------------------------------------------------------- |")
-    ConsoleColor.print_success("| ID - Name , Date Start , DateTime Start , Date End , DateTime End |")
+    ConsoleColor.print_success("| ------------------------------------------------------------------------- |")
+    ConsoleColor.print_success("| ID - Name , Date Start , DateTime Start , Date End , DateTime End , Status |")
     print(message[:-1])
-    ConsoleColor.print_success("| ----------------------------------------------------------------- |")
+    ConsoleColor.print_success("| ------------------------------------------------------------------------- |")
 
 
 def all_matches_of_round(matches: list[dict]) -> None:
@@ -118,10 +132,10 @@ def all_matches_of_round(matches: list[dict]) -> None:
             .format(match[0][0],
                     match[1][0])
         message += "\n"
-    ConsoleColor.print_success("| --------- |")
-    ConsoleColor.print_success("|  ID - ID  |")
+    ConsoleColor.print_success("| ----------- |")
+    ConsoleColor.print_success("|   ID - ID   |")
     print(message[:-1])
-    ConsoleColor.print_success("| --------- |")
+    ConsoleColor.print_success("| ----------- |")
 
 
 def show_all_matches(rounds: list[Round]) -> None:
@@ -130,6 +144,7 @@ def show_all_matches(rounds: list[Round]) -> None:
         message += f"| {round.name} | "
         for match in round.matches:
             message += f"{match[0][0]} - {match[1][0]} | "
-    ConsoleColor.print_success("| --------------------------------------- |")
-    print(message)
-    ConsoleColor.print_success("| --------------------------------------- | ")
+        message += "\n"
+    ConsoleColor.print_success("| ---------------------------------------------- |")
+    print(message[:-1])
+    ConsoleColor.print_success("| ---------------------------------------------- | ")

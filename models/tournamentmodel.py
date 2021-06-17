@@ -31,22 +31,26 @@ class TournamentModel(Model):
                           tournament["description"],
                           [[player_model.get(player[0]), player[1]] for player in tournament["players"]],
                           tournament["control_of_time"],
-                          TournamentModel.unserialize_round(tournament["rounds"], player_model)
+                          TournamentModel.unserialize_round(tournament["rounds"])
                           )
 
     @staticmethod
-    def unserialize_round(rounds: list[dict], player_model: PlayerModel) -> list[Round]:
-        return [
-            Round(round["name"],
-                  [],
+    def unserialize_round(rounds: list[dict]) -> list[Round]:
+        result_rounds = []
+        for round in rounds:
+            r = Round(round["name"],
                   tuple(
                       [([match[0][0], match[0][1]],
                         [match[1][0], match[1][1]])
-                          for match in round["matches"]]
+                       for match in round["matches"]]
                   )
                   )
-            for round in rounds
-        ]
+            r.start_hour = round["start_hour"]
+            r.start_date = round["start_date"]
+            r.end_date = round["end_date"]
+            r.end_hour = round["end_hour"]
+            result_rounds.append(r)
+        return result_rounds
 
     def all(self) -> list[Tournament]:
         tournaments = super().all()

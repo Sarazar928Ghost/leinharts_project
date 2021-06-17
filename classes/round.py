@@ -2,16 +2,13 @@ from datetime import datetime
 
 
 class Round:
-    def __init__(self, name: str, pairs: list, matches: tuple = None) -> None:
+    def __init__(self, name: str, matches: tuple = None) -> None:
         self.name = name
         self.start_date = datetime.now().strftime("%Y/%m/%d")
         self.start_hour = datetime.now().strftime("%H:%M:%S")
         self.end_date = None
         self.end_hour = None
-        self.matches = matches if matches is not None else self.generate_matches(pairs)
-
-    def generate_matches(self, pairs: list) -> tuple:
-        return tuple([([players_id[0], 0.0], [players_id[1], 0.0]) for players_id in pairs])
+        self.matches = matches
 
     def end(self) -> None:
         self.end_date = datetime.now().strftime("%Y/%m/%d")
@@ -28,4 +25,9 @@ class Round:
         }
 
     def __str__(self):
-        return f"{self.name}, {self.start_date}, {self.start_hour}, {self.end_date}, {self.end_hour}"
+        message = f"{self.name}, {self.start_date}, {self.start_hour}, {self.end_date}, {self.end_hour}"
+        if self.end_date is not None:
+            message += ", Terminé"
+        else:
+            message += ", En cours"
+        return message

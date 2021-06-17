@@ -34,7 +34,7 @@ class MainController:
                 tournament = self.get_tournament()
                 if tournament is not None:
                     while True:
-                        response = menu_tournament.show_menu_tournament(tournament.name)
+                        response = menu_tournament.show_menu_tournament(tournament.name, tournament.max_players)
                         if not self.menu_tournament(response, tournament):
                             break
             # Update ranking of a player
@@ -146,17 +146,7 @@ class MainController:
         # Show Rounds
         elif response == "3":
             menu_tournament.show_all_rounds(tournament.rounds)
-            while True:
-                round = self.get_round(tournament)
-                if round is None:
-                    return True
-                
-                response = menu_tournament.show_menu_round(round.name)
-                if response == "1":
-                    menu_tournament.all_matches_of_round(round.matches)
-                    return True
-                else:
-                    return True
+            return True
         # Show all matches of the current tournament
         elif response == "4":
             menu_tournament.show_all_matches(tournament.rounds)
@@ -197,18 +187,13 @@ class MainController:
                         players.append(player)
                         done = True
                         break
-                # KO
                 if not done:
                     not_found_id = id
                     break
 
-            # KO
             if not done:
                 menu.print_fail(f"L'acteur avec l'id {not_found_id} n'éxiste pas.")
-                return True
 
-
-            # OK
             can_add = tournament.add_players(players)
 
             self.tournament_model.truncate()
@@ -233,13 +218,38 @@ class MainController:
             if not tournament.is_full():
                 menu.print_fail(f"Impossible de crée un Round sans avoir {tournament.max_players} joueurs")
                 return True
-            if len(tournament.rounds) != 0:
-                menu.print_fail(f"Le tournoi {tournament.name} a déjà un tour principal")
+            if len(tournament.rounds) != 0 and tournament.rounds[-1].end_date is None:
+                menu.print_fail(f"Le round \"{tournament.rounds[-1].name}\" n'est pas encore fini.")
                 return True
-            tournament.create_round("Round 1")
-            #self.tournament_model.truncate()
-            #self.tournament_model.multiple_insert(self.tournaments)
+            tournament.create_round()
+            self.tournament_model.truncate()
+            self.tournament_model.multiple_insert(self.tournaments)
             menu.print_success("Le tour a bien été crée ainsi que ses match.")
             return True
-        tournament.test()
-        return False
+        # Put scores
+        elif response == "8":
+            if len(tournament.rounds) == 0:
+                menu.print_fail("Le tournoi ne contient pas encore de round.")
+                return True
+            round = tournament.rounds[-1]
+            if round.end_date is not None:
+                menu.print_fail("Le round est déjà fini, tout les scores sont inscris.")
+                return True
+            scores = menu_tournament.put_scores(round)
+            for i, match in enumerate(round.matches):
+                if scores[i] == 1:
+                    match[0][1] += 1
+                elif scores[i] == 2:
+                    match[1][1] += 1
+                elif scores[i] == 0:
+                    match[1][1] += 0.5
+                    match[0][1] += 0.5
+                tournament.put_scores(match)
+            round.end()
+            self.tournament_model.truncate()
+            self.tournament_model.multiple_insert(self.tournaments)
+            return True
+        # Stop
+        elif response == "9":
+            return False
+        return True
