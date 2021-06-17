@@ -1,4 +1,5 @@
 Prérequis :
+- pip install tinydb
 - pip install flake8
 - pip install flake8-html
 
