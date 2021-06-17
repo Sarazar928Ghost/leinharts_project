@@ -40,12 +40,12 @@ class TournamentModel(Model):
         result_rounds = []
         for round in rounds:
             r = Round(round["name"],
-                  tuple(
-                      [([match[0][0], match[0][1]],
-                        [match[1][0], match[1][1]])
-                       for match in round["matches"]]
-                  )
-                  )
+                      tuple(
+                          [([match[0][0], match[0][1]],
+                            [match[1][0], match[1][1]])
+                           for match in round["matches"]]
+                      )
+                      )
             r.start_hour = round["start_hour"]
             r.start_date = round["start_date"]
             r.end_date = round["end_date"]

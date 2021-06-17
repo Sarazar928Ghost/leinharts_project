@@ -55,7 +55,7 @@ class Tournament:
             for pair in zip(self.players_id_score[slice:], self.players_id_score[:slice]):
                 matches.append(([pair[0][0].id, pair[0][1]], [pair[1][0].id, pair[1][1]]))
                 self.add_already_played(pair[0][0].id, pair[1][0].id)
-            self.rounds.append(Round("Round 1", matches))
+            self.rounds.append(Round("Round 1", tuple(matches)))
             return
 
         if self.rounds[-1].end_date is None:
@@ -65,7 +65,7 @@ class Tournament:
         copy_pid = self.players_id_score.copy()
         matches = self.generate_matches(copy_pid)
         self.rounds.append(
-            Round(f"Round {len(self.rounds) + 1}", matches)
+            Round(f"Round {len(self.rounds) + 1}", tuple(matches))
         )
 
     def put_scores(self, match, response) -> None:
