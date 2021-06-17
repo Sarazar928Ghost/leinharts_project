@@ -24,7 +24,7 @@ class Round:
             "matches": [[[match[0][0], match[0][1]], [match[1][0], match[1][1]]] for match in self.matches]
         }
 
-    def __str__(self):
+    def __str__(self) -> str:
         message = f"{self.name}, {self.start_date}, {self.start_hour}, {self.end_date}, {self.end_hour}"
         if self.end_date is not None:
             message += ", Terminé"

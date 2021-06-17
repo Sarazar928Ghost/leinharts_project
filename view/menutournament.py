@@ -15,7 +15,8 @@ def show_menu_tournament(tournament_name, number_of_player) -> str:
                  "6: Ajouter plusieurs acteurs\n"
                  f"7: Générer un tour ( besoin de {number_of_player} joueurs )\n"
                  "8: Rentrer les scores\n"
-                 "9: Retourner au menu principal\n")
+                 "9: Voir les scores du tournoi\n"
+                 "10: Retourner au menu principal\n")
 
 
 def show_menu_round(round_name) -> str:
@@ -67,6 +68,12 @@ def add_players() -> list[int]:
     return split_id
 
 
+def show_scores(players_id_scores) -> None:
+    ConsoleColor.print_success("| Name(id) - scores |")
+    for p in players_id_scores:
+        print(f"  {p[0].first_name}({p[0].id}) - {p[1]}")
+
+
 def put_scores(round: Round) -> list[int]:
     number_of_matches = len(round.matches)
     scores = []
@@ -100,7 +107,7 @@ def create_tournament(id: int) -> Tournament:
 
     description = input("Description : ")
 
-    return Tournament(id, name, location, date, int(numbers_of_turns), 8, description, None, control_of_time)
+    return Tournament(id, name, location, date, int(numbers_of_turns), 8, description, None, None, control_of_time)
 
 
 def show_all_tournaments(tournaments: list[Tournament]) -> None:

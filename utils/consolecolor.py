@@ -12,13 +12,13 @@ class ConsoleColor:
     }
 
     @staticmethod
-    def print_fail(message):
+    def print_fail(message) -> None:
         print(f"{ConsoleColor.bcolors['FAIL']}{message}{ConsoleColor.bcolors['ENDC']}")
 
     @staticmethod
-    def print_warning(message):
+    def print_warning(message) -> None:
         print(f"{ConsoleColor.bcolors['WARNING']}{message}{ConsoleColor.bcolors['ENDC']}")
 
     @staticmethod
-    def print_success(message):
+    def print_success(message) -> None:
         print(f"{ConsoleColor.bcolors['OKGREEN']}{message}{ConsoleColor.bcolors['ENDC']}")

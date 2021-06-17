@@ -221,6 +221,10 @@ class MainController:
             if len(tournament.rounds) != 0 and tournament.rounds[-1].end_date is None:
                 menu.print_fail(f"Le round \"{tournament.rounds[-1].name}\" n'est pas encore fini.")
                 return True
+            if len(tournament.rounds) == tournament.number_of_turns:
+                menu.print_fail("Le tournoi est terminé.")
+                menu_tournament.show_scores(tournament.players_id_score)
+                return True
             tournament.create_round()
             self.tournament_model.truncate()
             self.tournament_model.multiple_insert(self.tournaments)
@@ -248,8 +252,15 @@ class MainController:
             round.end()
             self.tournament_model.truncate()
             self.tournament_model.multiple_insert(self.tournaments)
+            if len(tournament.rounds) == tournament.number_of_turns:
+                menu.print_success("Le tournoi est terminé.")
+                menu_tournament.show_scores(tournament.players_id_score)
+            return True
+        # Show scores
+        elif response == "9":
+            menu_tournament.show_scores(tournament.players_id_score)
             return True
         # Stop
-        elif response == "9":
+        elif response == "10":
             return False
         return True

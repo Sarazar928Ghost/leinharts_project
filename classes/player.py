@@ -16,5 +16,5 @@ class Player:
             "ranking": self.ranking,
         }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.id} - {self.first_name}, {self.last_name}, {self.birth_date}, {self.sex}, {self.ranking}"

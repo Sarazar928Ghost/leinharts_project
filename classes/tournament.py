@@ -1,6 +1,6 @@
 from classes.player import Player
 from classes.round import Round
-import random
+
 
 class Tournament:
     def __init__(self,
@@ -12,6 +12,7 @@ class Tournament:
                  max_players=8,
                  description="",
                  players=None,
+                 already_played=None,
                  control_of_time=None,
                  rounds=None) -> None:
         if players is None:
@@ -27,7 +28,7 @@ class Tournament:
         self.description = description
         self.players = [player[0] for player in players]
         self.players_id_score = [[player[0], player[1]] for player in players]
-        self.already_played = {player.id: [] for player in self.players}
+        self.already_played = {player.id: [] for player in self.players} if already_played is None else already_played
         self.control_of_time = control_of_time
         self.rounds = rounds
         self.current_players = len(players)  # For create Round
@@ -62,119 +63,35 @@ class Tournament:
 
         self.players_id_score.sort(key=lambda p: (p[1], p[0].ranking))
         copy_pid = self.players_id_score.copy()
-        matches = self.generate_matches_advanced(copy_pid)
+        matches = self.generate_matches(copy_pid)
         self.rounds.append(
             Round(f"Round {len(self.rounds) + 1}", matches)
         )
 
-    def put_scores(self, match):
+    def put_scores(self, match) -> None:
         for pid in self.players_id_score:
             if pid[0].id == match[0][0]:
                 pid[1] = match[0][1]
             if pid[0].id == match[1][0]:
                 pid[1] = match[1][1]
 
-    def add_already_played(self, id_1, id_2):
+    def add_already_played(self, id_1, id_2) -> None:
         self.already_played[id_1].append(id_2)
         self.already_played[id_2].append(id_1)
 
-    def __generate_match_valid(self, copy_pid, opponents):
-        marge = 0
-        next = 0
-        use_marge = marge
-        while True:
-            pidc = copy_pid.copy()
-            pid = pidc.pop(next)
-            id_pid = pid[0].id
-            id_p = 0
-            match = []
-            matches = []
-            for p in pidc:
-                id_p = p[0].id
-                if id_p not in self.already_played[id_pid]:
-                    if use_marge > 0:
-                        use_marge -= 1
-                        continue
-                    match = ([id_pid, pid[1]], [id_p, p[1]])
-                    pidc.remove(p)
-                    break
-            if len(match) == 2:
-                matches.append(match)
-            done = []
-            for k in opponents:
-                if len(pidc) == 2 and pidc[0][0].id not in self.already_played[pidc[1][0].id]:
-                    m = ([pidc[0][0].id, pidc[0][1]], [pidc[1][0].id, pidc[1][1]])
-                    matches.append(m)
-                    pidc.clear()
-                elif len(opponents[k]) == 1:
-                    match = []
-                    for p in pidc:
-                        if (p[0].id == opponents[k][0] or p[0].id == k) and p[0].id not in done:
-                            match.append(p)
-                            done.append(p[0].id)
-                    if len(match) == 2:
-                        if match[0][0].id in self.already_played[match[1][0].id]:
-                            done = [1]
-                            break
-                        pidc.remove(match[0])
-                        pidc.remove(match[1])
-                        matches.append(([match[0][0].id, match[0][1]], [match[1][0].id, match[1][1]]))
-            if len(done) % 2 != 0:
-                marge += 1
-                if marge >= len(opponents[list(opponents.keys())[0]]):
-                    marge = 0
-                    next += 1
-                if next >= len(pidc):
-                    next = 0
-                continue
-            return matches, done
-
-    def generate_matches_advanced(self, copy_pid):
-        opponents = {p.id: [k for k in self.already_played if k != p.id and k not in self.already_played[p.id]]
-                     for p in self.players}
+    def generate_matches(self, copy_pid):
         matches = []
-
-        def create_last_match():
-            m = ([copy_pid[0][0].id, copy_pid[0][1]], [copy_pid[1][0].id, copy_pid[1][1]])
-            self.add_already_played(m[0][0], m[1][0])
-            matches.append(m)
-            copy_pid.clear()
+        done = []
         while copy_pid:
-
-            pairs, done = self.__generate_match_valid(copy_pid, opponents)
-            matches = matches + pairs
-            need_remove = []
-            for p in copy_pid:
-                for pair in pairs:
-                    if p[0].id == pair[0][0] or p[0].id == pair[1][0]:
-                        need_remove.append(p)
-                        break
-            for r in need_remove:
-                copy_pid.remove(r)
-            for p in pairs:
-                del opponents[p[0][0]]
-                del opponents[p[1][0]]
-                if p[0][0] in done:
-                    done.remove(p[0][0])
-                if p[1][0] in done:
-                    done.remove(p[1][0])
-                for k in opponents:
-                    if p[0][0] in opponents[k]:
-                        opponents[k].remove(p[0][0])
-                    if p[1][0] in opponents[k]:
-                        opponents[k].remove(p[1][0])
-                self.add_already_played(p[0][0], p[1][0])
-
-            if opponents:
-                for d in done:
-                    del opponents[d]
-                    [opponents[k].remove(d) for k in opponents if d in opponents[k]]
-            for i in range(0, len(done), 2):
-                self.add_already_played(done[i], done[i + 1])
-
-            if len(copy_pid) == 2:
-                create_last_match()
-
+            player_one = copy_pid.pop(0)
+            for player_two in copy_pid:
+                if player_two[0].id not in done \
+                    and player_one[0].id not in done \
+                        and player_two[0].id not in self.already_played[player_one[0].id]:
+                    matches.append(([player_one[0].id, player_one[1]], [player_two[0].id, player_two[1]]))
+                    done = done + [player_one[0].id, player_two[0].id]
+                    self.add_already_played(player_one[0].id, player_two[0].id)
+                    break
         return matches
 
     def add_player(self, player: Player) -> bool:
@@ -221,11 +138,12 @@ class Tournament:
             "max_players": self.max_players,
             "description": self.description,
             "players": [[pid[0].id, pid[1]] for pid in self.players_id_score],
+            "already_played": self.already_played,
             "control_of_time": self.control_of_time,
             "rounds": [round.serialize() for round in self.rounds]
         }
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"  {self.id} - " \
                f"{self.name}, " \
                f"{self.location}, " \
