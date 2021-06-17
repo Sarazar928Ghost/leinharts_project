@@ -11,3 +11,4 @@ Pour lancer le programme :
 
 Les données sont stocké dans data.json
 
+Pour avoir des acteurs préfaits : https://www.mediafire.com/file/ver008fw4020qj3/data.json/file
