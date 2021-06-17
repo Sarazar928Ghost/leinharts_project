@@ -241,14 +241,7 @@ class MainController:
                 return True
             scores = menu_tournament.put_scores(round)
             for i, match in enumerate(round.matches):
-                if scores[i] == 1:
-                    match[0][1] += 1
-                elif scores[i] == 2:
-                    match[1][1] += 1
-                elif scores[i] == 0:
-                    match[1][1] += 0.5
-                    match[0][1] += 0.5
-                tournament.put_scores(match)
+                tournament.put_scores(match, scores[i])
             round.end()
             self.tournament_model.truncate()
             self.tournament_model.multiple_insert(self.tournaments)

@@ -68,7 +68,14 @@ class Tournament:
             Round(f"Round {len(self.rounds) + 1}", matches)
         )
 
-    def put_scores(self, match) -> None:
+    def put_scores(self, match, response) -> None:
+        if response == 1:
+            match[0][1] += 1
+        elif response == 2:
+            match[1][1] += 1
+        elif response == 0:
+            match[1][1] += 0.5
+            match[0][1] += 0.5
         for pid in self.players_id_score:
             if pid[0].id == match[0][0]:
                 pid[1] = match[0][1]
@@ -79,6 +86,7 @@ class Tournament:
         self.already_played[id_1].append(id_2)
         self.already_played[id_2].append(id_1)
 
+    # -_-'
     def generate_matches(self, copy_pid):
         matches = []
         done = []
