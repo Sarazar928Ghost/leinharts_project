@@ -56,14 +56,14 @@ class MainController:
             # Create a player
             elif response == "4":
                 Tournament.sorted_by_id(self.players)
-                id = self.players[len(self.players) - 1].id + 1 if len(self.players) != 0 else 1
+                id = self.players[-1].id + 1 if len(self.players) != 0 else 1
                 player = menu_player.create_player(id)
                 self.players.append(player)
                 self.player_model.insert(player)
                 menu.print_success("L'acteur a été crée avec succés.")
             # Create a tournament
             elif response == "5":
-                id = self.tournaments[len(self.tournaments) - 1].id + 1 if len(self.tournaments) != 0 else 1
+                id = self.tournaments[-1].id + 1 if len(self.tournaments) != 0 else 1
                 tournament = menu_tournament.create_tournament(id)
                 self.tournaments.append(tournament)
                 self.tournament_model.insert(tournament)
