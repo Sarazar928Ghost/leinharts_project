@@ -15,6 +15,10 @@ class Model:
     def truncate(self) -> None:
         self.table.truncate()
 
+    def update(self, classes_array):
+        self.truncate()
+        self.multiple_insert(classes_array)
+
     def multiple_insert(self, classes_array: list) -> None:
         for classes in classes_array:
             self.insert(classes)

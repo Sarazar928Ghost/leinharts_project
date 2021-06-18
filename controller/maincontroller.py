@@ -48,8 +48,7 @@ class MainController:
                         if ranking is None:
                             break
                         player.ranking = ranking
-                        self.player_model.truncate()
-                        self.player_model.multiple_insert(self.players)
+                        self.player_model.update(self.players)
                         menu.print_success(f"Le ranking de l'acteur {player.first_name} a bien été mis à jour.")
                         break
 
@@ -165,8 +164,7 @@ class MainController:
                         if not tournament.add_player(player):
                             menu.print_fail(f"L'acteur avec l'id {id} est déjà inscris dans le tournoi.")
                             return True
-                        self.tournament_model.truncate()
-                        self.tournament_model.multiple_insert(self.tournaments)
+                        self.tournament_model.update(self.tournaments)
 
                         menu.print_success(f"L'acteur \"{player.first_name}\" a été ajouté avec succès.")
                         return True
@@ -196,8 +194,7 @@ class MainController:
 
             can_add = tournament.add_players(players)
 
-            self.tournament_model.truncate()
-            self.tournament_model.multiple_insert(self.tournaments)
+            self.tournament_model.update(self.tournaments)
 
             if len(can_add[0]) == 0:
                 message = f"Aucun acteur n'a été ajouté au tournoi \"{tournament.name}\"."
@@ -226,8 +223,7 @@ class MainController:
                 menu_tournament.show_scores(tournament.players_id_score)
                 return True
             tournament.create_round()
-            self.tournament_model.truncate()
-            self.tournament_model.multiple_insert(self.tournaments)
+            self.tournament_model.update(self.tournaments)
             menu.print_success("Le tour a bien été crée ainsi que ses match.")
             return True
         # Put scores
@@ -243,8 +239,7 @@ class MainController:
             for i, match in enumerate(round.matches):
                 tournament.put_scores(match, scores[i])
             round.end()
-            self.tournament_model.truncate()
-            self.tournament_model.multiple_insert(self.tournaments)
+            self.tournament_model.update(self.tournaments)
             if len(tournament.rounds) == tournament.number_of_turns:
                 menu.print_success("Le tournoi est terminé.")
                 menu_tournament.show_scores(tournament.players_id_score)
