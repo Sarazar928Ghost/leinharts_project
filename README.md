@@ -1,7 +1,5 @@
 Prérequis :
-- pip install tinydb
-- pip install flake8
-- pip install flake8-html
+- pip install -r requirements.txt
 
 Pour générer un rapport flake8 tapez cette commande dans le terminal :
 "flake8 --format=html --htmldir=flake-report"
