@@ -1,5 +1,4 @@
 from utils.consolecolor import ConsoleColor
-from classes.player import Player
 from utils.inpututils import cant_be_blank
 from typing import Optional
 
@@ -28,7 +27,7 @@ def update_ranking(first_name) -> Optional[int]:
     return int(response)
 
 
-def create_player(id: int) -> Player:
+def create_player(id: int) -> dict:
     first_name = cant_be_blank("First Name : ")
     last_name = cant_be_blank("Last Name : ")
     birth_day = cant_be_blank("Birth Day (Year/Month/Day) : ")
@@ -44,7 +43,14 @@ def create_player(id: int) -> Player:
     while not ranking.isdecimal():
         ranking = cant_be_blank("Ranking ( Must be a int ) : ")
 
-    return Player(id, first_name, last_name, birth_day, sex, int(ranking))
+    return {
+        "id": id,
+        "first_name": first_name,
+        "last_name": last_name,
+        "birth_day": birth_day,
+        "sex": sex,
+        "ranking": int(ranking)
+    }
 
 
 def show_players(players: list) -> None:

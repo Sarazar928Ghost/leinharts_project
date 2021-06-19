@@ -56,14 +56,17 @@ class MainController:
             elif response == "4":
                 Tournament.sorted_by_id(self.players)
                 id = self.players[-1].id + 1 if len(self.players) != 0 else 1
-                player = menu_player.create_player(id)
+                data_player = menu_player.create_player(id)
+                player = Player(*data_player.values())
                 self.players.append(player)
                 self.player_model.insert(player)
                 menu.print_success("L'acteur a été crée avec succés.")
             # Create a tournament
             elif response == "5":
                 id = self.tournaments[-1].id + 1 if len(self.tournaments) != 0 else 1
-                tournament = menu_tournament.create_tournament(id)
+                data_tournament = menu_tournament.create_tournament(id)
+                control_of_time = data_tournament.pop("control_of_time")
+                tournament = Tournament(*data_tournament.values(), control_of_time=control_of_time)
                 self.tournaments.append(tournament)
                 self.tournament_model.insert(tournament)
                 menu.print_success(f"Le tournoi \"{tournament.name}\" a été crée avec succés.")

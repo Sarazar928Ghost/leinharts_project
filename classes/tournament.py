@@ -87,7 +87,7 @@ class Tournament:
         self.already_played[id_2].append(id_1)
 
     # -_-'
-    def generate_matches(self, copy_pid):
+    def generate_matches(self, copy_pid) -> tuple[tuple[list, list], ...]:
         matches = []
         done = []
         while copy_pid:
@@ -100,7 +100,7 @@ class Tournament:
                     done = done + [player_one[0].id, player_two[0].id]
                     self.add_already_played(player_one[0].id, player_two[0].id)
                     break
-        return matches
+        return tuple(matches)
 
     def add_player(self, player: Player) -> bool:
         if self.is_full():

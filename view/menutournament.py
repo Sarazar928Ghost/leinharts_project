@@ -88,7 +88,7 @@ def put_scores(round: Round) -> list[int]:
     return scores
 
 
-def create_tournament(id: int) -> Tournament:
+def create_tournament(id: int) -> dict:
     name = cant_be_blank("Name : ")
     location = cant_be_blank("Location : ")
     date = cant_be_blank("Date (Year/Month/Day) : ")
@@ -107,7 +107,16 @@ def create_tournament(id: int) -> Tournament:
 
     description = input("Description : ")
 
-    return Tournament(id, name, location, date, int(numbers_of_turns), 8, description, None, None, control_of_time)
+    return {
+        "id": id,
+        "name": name,
+        "location": location,
+        "date": date,
+        "numbers_of_turns": int(numbers_of_turns),
+        "max_player": 8,
+        "description": description,
+        "control_of_time": control_of_time
+    }
 
 
 def show_all_tournaments(tournaments: list[Tournament]) -> None:
