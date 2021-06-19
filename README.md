@@ -1,13 +1,13 @@
-Prérequis :
+prerequisite  :
 - pip install -r requirements.txt
 
-Pour générer un rapport flake8 tapez cette commande dans le terminal :
+Generate report flake8 , use this command in the terminal :
 "flake8 --format=html --htmldir=flake-report"
 
-Pour lancer le programme :
-- Lancez main.py
-- Suivez les instructions dans la console
+Run the program :
+- Run the file : main.py
+- Follow the instructions in the terminal
 
-Les données sont stocké dans data.json
+the data is stored in the file data.json
 
-Pour avoir des acteurs préfaits : https://www.mediafire.com/file/ver008fw4020qj3/data.json/file
+To have prejudiced players , download the file here : https://www.mediafire.com/file/o3blf3b43e0qzja/data.json/file
