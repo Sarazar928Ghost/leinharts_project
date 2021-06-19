@@ -2,7 +2,7 @@ prerequisite  :
 - pip install -r requirements.txt
 
 Generate report flake8 , use this command in the terminal :
-"flake8 --format=html --htmldir=flake-report"
+- flake8 --format=html --htmldir=flake-report
 
 Run the program :
 - Run the file : main.py
