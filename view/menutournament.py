@@ -1,6 +1,5 @@
 from classes.round import Round
 from utils.consolecolor import ConsoleColor
-from classes.tournament import Tournament
 from typing import Optional
 from utils.inpututils import cant_be_blank
 
@@ -121,7 +120,7 @@ def create_tournament(id: int) -> dict:
     }
 
 
-def show_all_tournaments(tournaments: list[Tournament]) -> None:
+def show_all_tournaments(tournaments: list[str]) -> None:
     message = ""
     for tournament in tournaments:
         message += f"  {tournament}"

@@ -30,7 +30,7 @@ class MainController:
                     menu_player.show_players(self.players)
             # List of tournaments
             elif response == "2":
-                menu_tournament.show_all_tournaments(self.tournaments)
+                menu_tournament.show_all_tournaments([str(tournament) for tournament in self.tournaments])
                 tournament = self.get_tournament()
                 if tournament is not None:
                     while True:
