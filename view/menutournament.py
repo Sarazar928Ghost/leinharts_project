@@ -55,6 +55,8 @@ def add_players() -> list[int]:
     while not done:
         done = True
         response = input("Rentrez les id des acteurs a ajouter ( Example : 1,2,3,4,5 ) : ")
+        if response.strip() == "":
+            return []
         while response[-1] == "," or response[-1] == " ":
             response = response[:-1]
         split_id = response.split(",")
