@@ -16,7 +16,7 @@ class MainController:
         self.players = self.player_model.all()
         self.tournaments = self.tournament_model.all()
 
-    def menu(self) -> None:
+    def run(self) -> None:
         while True:
             response = menu.show_menu()
             # List of players

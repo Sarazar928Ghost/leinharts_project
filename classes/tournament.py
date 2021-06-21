@@ -78,9 +78,9 @@ class Tournament:
             match[0][1] += 0.5
         for pid in self.players_id_score:
             if pid[0].id == match[0][0]:
-                pid[1] = match[0][1]
+                pid[1] += match[0][1]
             if pid[0].id == match[1][0]:
-                pid[1] = match[1][1]
+                pid[1] += match[1][1]
 
     def add_already_played(self, id_1, id_2) -> None:
         self.already_played[id_1].append(id_2)
@@ -96,7 +96,7 @@ class Tournament:
                 if player_two[0].id not in done \
                     and player_one[0].id not in done \
                         and player_two[0].id not in self.already_played[player_one[0].id]:
-                    matches.append(([player_one[0].id, player_one[1]], [player_two[0].id, player_two[1]]))
+                    matches.append(([player_one[0].id, 0.0], [player_two[0].id, 0.0]))
                     done = done + [player_one[0].id, player_two[0].id]
                     self.add_already_played(player_one[0].id, player_two[0].id)
                     break
