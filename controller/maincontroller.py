@@ -70,8 +70,10 @@ class MainController:
                 self.tournaments.append(tournament)
                 self.tournament_model.insert(tournament)
                 menu.print_success(f"Le tournoi \"{tournament.name}\" a été crée avec succés.")
-            else:
+            elif response == "6":
                 return
+            else:
+                menu.print_fail("Mauvaise commande.")
 
     def get_round(self, tournament: Tournament) -> Optional[Round]:
         while True:

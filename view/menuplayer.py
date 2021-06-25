@@ -7,7 +7,7 @@ def show_menu_players() -> str:
     ConsoleColor.print_warning("Liste des functions pour les acteurs :")
     return input("1: Afficher par ordre alphabétique\n"
                  "2: Afficher par ranking\n"
-                 "3: Retour en arrière\n")
+                 "3: Appuyer sur enter pour retourner en arrière\n")
 
 
 def choose_player() -> str:
@@ -16,10 +16,10 @@ def choose_player() -> str:
 
 
 def update_ranking(first_name) -> Optional[int]:
-    ConsoleColor.print_warning("Appuyez sur enter pour retourner en arrière")
+    ConsoleColor.print_warning("Appuyer sur enter pour retourner en arrière")
     response = "usless"
     while response != "" and not response.isdecimal():
-        response = input(f"Rentrez le nouveau classement de {first_name} : ")
+        response = input(f"Rentrer le nouveau classement de {first_name} : ")
 
     if response == "":
         return None

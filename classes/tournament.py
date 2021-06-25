@@ -86,15 +86,41 @@ class Tournament:
         self.already_played[id_1].append(id_2)
         self.already_played[id_2].append(id_1)
 
+    def get_last_round(self, copy_pid) -> tuple[tuple[list, list], ...]:
+        while True:
+            matches = []
+            done = []
+            next = 0
+            copy_already_played = self.already_played.copy()
+            while copy_pid:
+                player_one = copy_pid.pop(next)
+                for player_two in copy_pid:
+                    if player_two[0].id not in done \
+                            and player_one[0].id not in done \
+                            and player_two[0].id not in copy_already_played[player_one[0].id]:
+                        matches.append(([player_one[0].id, 0.0], [player_two[0].id, 0.0]))
+                        done = done + [player_one[0].id, player_two[0].id]
+                        copy_already_played[player_one[0].id].append(player_two[0].id)
+                        copy_already_played[player_two[0].id].append(player_one[0].id)
+                        break
+            if len(matches) == 4:
+                break
+            else:
+                next += 1
+        return tuple(matches)
+
     # -_-'
     def generate_matches(self, copy_pid) -> tuple[tuple[list, list], ...]:
+        if len(self.rounds) > 2:
+            return self.get_last_round(copy_pid)
+
         matches = []
         done = []
         while copy_pid:
             player_one = copy_pid.pop(0)
             for player_two in copy_pid:
                 if player_two[0].id not in done \
-                    and player_one[0].id not in done \
+                        and player_one[0].id not in done \
                         and player_two[0].id not in self.already_played[player_one[0].id]:
                     matches.append(([player_one[0].id, 0.0], [player_two[0].id, 0.0]))
                     done = done + [player_one[0].id, player_two[0].id]
