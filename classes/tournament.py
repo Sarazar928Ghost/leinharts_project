@@ -87,14 +87,16 @@ class Tournament:
         self.already_played[id_2].append(id_1)
 
     def get_last_round(self, copy_pid) -> tuple[tuple[list, list], ...]:
+        next = 0
         while True:
             matches = []
+            cyp = copy_pid.copy()
             done = []
-            next = 0
             copy_already_played = self.already_played.copy()
-            while copy_pid:
-                player_one = copy_pid.pop(next)
-                for player_two in copy_pid:
+            while cyp:
+                next = 0 if len(cyp) == 1 else next
+                player_one = cyp.pop(next)
+                for player_two in cyp:
                     if player_two[0].id not in done \
                             and player_one[0].id not in done \
                             and player_two[0].id not in copy_already_played[player_one[0].id]:
@@ -106,7 +108,7 @@ class Tournament:
             if len(matches) == 4:
                 break
             else:
-                next += 1
+                next = 1
         self.already_played = copy_already_played
         return tuple(matches)
 
