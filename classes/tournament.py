@@ -107,6 +107,7 @@ class Tournament:
                 break
             else:
                 next += 1
+        self.already_played = copy_already_played
         return tuple(matches)
 
     # -_-'
