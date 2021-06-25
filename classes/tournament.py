@@ -1,6 +1,5 @@
 from classes.player import Player
 from classes.round import Round
-from random import shuffle
 
 
 class Tournament:
@@ -93,7 +92,6 @@ class Tournament:
         while True:
             matches = []
             cyp = copy_pid.copy()
-            shuffle(cyp)
             done = []
             copy_already_played = self.already_played.copy()
             while cyp:
