@@ -180,7 +180,6 @@ class MainController:
                 menu.print_fail(f"Le tournoi contient déjà {tournament.max_players} acteurs.")
                 return True
             all_id = menu_tournament.add_players()
-            done = False
             not_found_id = []
             players = []
             for id in all_id:
