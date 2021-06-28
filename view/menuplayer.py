@@ -1,5 +1,5 @@
 from utils.consolecolor import ConsoleColor
-from utils.inpututils import cant_be_blank
+from utils.inpututils import cant_be_blank, must_be_date
 from typing import Optional
 
 
@@ -30,7 +30,7 @@ def update_ranking(first_name) -> Optional[int]:
 def create_player(id: int) -> dict:
     first_name = cant_be_blank("First Name : ")
     last_name = cant_be_blank("Last Name : ")
-    birth_day = cant_be_blank("Birth Day (Year/Month/Day) : ")
+    birth_day = must_be_date("Birth Day (Year/Month/Day) : ")
     sex = cant_be_blank("Sex [Man , Women or Non-Binaire] : ")
 
     sex = sex.lower()
