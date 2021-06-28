@@ -16,7 +16,7 @@ def must_be_date(message, format=None, warning=None) -> str:
     while True:
         try:
             date = cant_be_blank(message)
-            datetime.strptime(date, format)
-            return date
+            date = datetime.strptime(date, format)
+            return date.strftime(format)
         except ValueError:
             ConsoleColor.print_fail(warning)
