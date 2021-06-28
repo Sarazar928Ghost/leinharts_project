@@ -181,7 +181,7 @@ class MainController:
                 return True
             all_id = menu_tournament.add_players()
             done = False
-            not_found_id = 0
+            not_found_id = []
             players = []
             for id in all_id:
                 done = False
@@ -191,11 +191,10 @@ class MainController:
                         done = True
                         break
                 if not done:
-                    not_found_id = id
-                    break
+                    not_found_id.append(id)
 
             if not done:
-                menu.print_fail(f"L'acteur avec l'id {not_found_id} n'éxiste pas.")
+                menu.print_fail(f"Les acteurs avec les id {not_found_id} n'éxistent pas.")
 
             can_add = tournament.add_players(players)
 
