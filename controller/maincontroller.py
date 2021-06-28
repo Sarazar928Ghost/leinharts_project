@@ -193,7 +193,7 @@ class MainController:
                 if not done:
                     not_found_id.append(id)
 
-            if not done:
+            if len(not_found_id) != 0:
                 menu.print_fail(f"Les acteurs avec les id {not_found_id} n'éxistent pas.")
 
             can_add = tournament.add_players(players)
