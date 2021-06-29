@@ -4,14 +4,14 @@ from datetime import datetime
 class Round:
     def __init__(self, name: str, matches: tuple = None) -> None:
         self.name = name
-        self.start_date = datetime.now().strftime("%Y/%m/%d")
+        self.start_date = datetime.now().strftime("%d/%m/%Y")
         self.start_hour = datetime.now().strftime("%H:%M:%S")
         self.end_date = None
         self.end_hour = None
         self.matches = matches
 
     def end(self) -> None:
-        self.end_date = datetime.now().strftime("%Y/%m/%d")
+        self.end_date = datetime.now().strftime("%d/%m/%Y")
         self.end_hour = datetime.now().strftime("%H:%M:%S")
 
     def serialize(self) -> dict:

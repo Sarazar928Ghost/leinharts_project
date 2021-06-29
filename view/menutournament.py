@@ -92,7 +92,7 @@ def put_scores(round: Round) -> list[int]:
 def create_tournament(id: int) -> dict:
     name = cant_be_blank("Name : ")
     location = cant_be_blank("Location : ")
-    date = must_be_date("Date (Year/Month/Day) : ")
+    date = must_be_date("Date (Day/Month/Year) : ")
     numbers_of_turns = "usless"
     while numbers_of_turns != "" and not numbers_of_turns.isdecimal():
         numbers_of_turns = input("numbers_of_turns (Default 4) : ")
