@@ -62,8 +62,7 @@ class Tournament:
             return
 
         self.players_id_score.sort(key=lambda p: (p[1], p[0].ranking))
-        copy_p = self.players.copy()
-        matches = self.generate_matches(copy_p)
+        matches = self.generate_matches()
         self.rounds.append(
             Round(f"Round {len(self.rounds) + 1}", tuple(matches))
         )
@@ -87,11 +86,11 @@ class Tournament:
         self.already_played[id_2].append(id_1)
 
     # -_-'
-    def generate_matches(self, copy_p: list[Player]) -> tuple[tuple[list, list], ...]:
+    def generate_matches(self) -> tuple[tuple[list, list], ...]:
         next = 0
         while True:
             matches = []
-            p = copy_p.copy()
+            p = self.players.copy()
             done = []
             copy_already_played = self.already_played.copy()
             while p:
