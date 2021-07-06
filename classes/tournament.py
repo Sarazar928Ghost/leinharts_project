@@ -11,12 +11,12 @@ class Tournament:
                  numbers_of_turns=4,
                  max_players=8,
                  description="",
-                 players=None,
+                 players_id_score=None,
                  already_played=None,
                  control_of_time=None,
                  rounds=None) -> None:
-        if players is None:
-            players: list[list[Player, float]] = []
+        if players_id_score is None:
+            players_id_score: list[list[Player, float]] = []
         if rounds is None:
             rounds: list[Round] = []
         self.id = id
@@ -26,12 +26,12 @@ class Tournament:
         self.number_of_turns = numbers_of_turns
         self.max_players = max_players
         self.description = description
-        self.players = [player[0] for player in players]
-        self.players_id_score = [[player[0], player[1]] for player in players]
+        self.players = [player[0] for player in players_id_score]
+        self.players_id_score = players_id_score
         self.already_played = {player.id: [] for player in self.players} if already_played is None else already_played
         self.control_of_time = control_of_time
         self.rounds = rounds
-        self.current_players = len(players)  # For create Round
+        self.current_players = len(players_id_score)  # For create Round
 
     @staticmethod
     def sorted_by_ranking(players) -> None:
